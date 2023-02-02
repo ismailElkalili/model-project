@@ -862,63 +862,79 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-
-        @yield('forms')
-        @yield('tabels')
-        @yield('dash')
-
-
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Workhouse.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" style="text-align: right">
+                <div class="container-fluid">
+                    <div class="row ">
+                        <!-- /.col -->
+                        <div class="col-md-12 ">
+                            {{-- <h1 class="m-0 f">مركز بلال بن رباح </h1> --}}
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
             </div>
-        </footer>
+            <!-- /.content-header -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row" style="position: static;  display: inline;">
+                        @yield('forms')
+                        @yield('tabels')
+                        @yield('dash')
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-    <!-- daterangepicker -->
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- Workhouse App -->
-    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-    <!-- Workhouse for demo purposes -->
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
-    <!-- Workhouse dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery -->
+        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+        <!-- Sparkline -->
+        <script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
+        <!-- JQVMap -->
+        <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+        <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+        <!-- daterangepicker -->
+        <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+        <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+        <!-- Summernote -->
+        <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+        <!-- overlayScrollbars -->
+        <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <!-- Workhouse App -->
+        <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+        <!-- Workhouse for demo purposes -->
+        <script src="{{ asset('dist/js/demo.js') }}"></script>
+        <!-- Workhouse dashboard demo (This is only for demo purposes) -->
+        {{-- <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script> --}}
 </body>
 
 </html>
