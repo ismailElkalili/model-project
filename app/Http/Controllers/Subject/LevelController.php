@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Subject;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LevelRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class LevelController extends Controller
     public function index()
     {
         $levels = DB::table('levels')->get();
-        return view('level.index')->with('levels',$levels);
+        return view('level.index')->with('levels', $levels);
     }
 
     /**
@@ -26,7 +27,7 @@ class LevelController extends Controller
      */
     public function create()
     {
-        //
+        return view('level.create');
     }
 
     /**
@@ -35,9 +36,12 @@ class LevelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LevelRequest $request)
     {
-        //
+        DB::table('levels')->insert([
+            'name' => $request['level_Name']
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -57,9 +61,11 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($levelId)
     {
         //
+        $level = DB::table('levels')->where('id', $levelId)->first();
+        return view('level.edit')->with('level', $level);
     }
 
     /**
@@ -69,9 +75,12 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LevelRequest $request, $levelId)
     {
-        //
+        DB::table('levels')->where('id', $levelId)->update([
+            'name' => $request['level_Name']
+        ]);
+        return redirect('/level/index');
     }
 
     /**
@@ -80,8 +89,9 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($levelId)
     {
-        //
+        DB::table('levels')->where('id', $levelId)->delete();
+        return redirect()->back();
     }
 }
