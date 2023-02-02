@@ -42,4 +42,16 @@
             </table>
         </div>
     </div>
+    @if (Session::has('mes'))
+        <label class="alert alert-success text-right" id="success-alert">
+            {{ Session::get('mes') }}
+            <button style="margin-left: 5px" type="button" class="close" data-dismiss="alert">&times;</button>
+        </label>
+    @endif
+    <script type="text/javascript">
+        setTimeout(function() {
+            // Closing the alert
+            $('.alert').alert('close');
+        }, 3000);
+    </script>
 @endsection
