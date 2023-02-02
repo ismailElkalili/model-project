@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Subscribition;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubscribtionController extends Controller
 {
@@ -14,7 +15,7 @@ class SubscribtionController extends Controller
      */
     public function index()
     {
-        //
+        return view('subscribition.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class SubscribtionController extends Controller
      */
     public function create()
     {
-        //
+        return view('subscribition.create');
     }
 
     /**
@@ -35,7 +36,11 @@ class SubscribtionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        DB::table('subscribtions')->insert([
+            'subscribtion_plan' => $request['subscribtionPlan']
+        ]);
+        return redirect()->action([SubscribtionController::class, 'index']);
     }
 
     /**
@@ -44,9 +49,9 @@ class SubscribtionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($subscribtionID)
     {
-        //
+     
     }
 
     /**
@@ -55,9 +60,11 @@ class SubscribtionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($subscribtionID)
     {
-        //
+        $subscribtion = DB::table('subscribtions')->where('id', '=', $subscribtionID)->first();
+        return view('subscribition.edit')
+             ->with('subscribtion', $subscribtion);
     }
 
     /**
@@ -67,9 +74,12 @@ class SubscribtionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $subscribtionID)
     {
-        //
+        DB::table('subscribtions')->where('id', '=', $subscribtionID)->update([
+            'subscribtion_plan' => $request['subscribtionPlan']
+        ]);  
+        return redirect()->action([SubscribtionController::class, 'index']);
     }
 
     /**
