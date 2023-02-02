@@ -18,21 +18,23 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
+                            {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
                                 <i class="fas fa-folder">
                                 </i>
                                 View
-                            </a>
+                            </a> --}}
                             <a class="btn btn-info btn-sm" href="{{ url('/level/edit/' . $item->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{ url('/level/archive/' . $item->id) }}">
-                                <i class="fas fa-trash">
-                                </i>
-                                Archive
-                            </a>
+                            <span>
+                            <form style="display: inline"  method="POST" action="{{ url('/level/destroy/' . $item->id) }}">
+                                @csrf
+                                <button type="sumbit" class="btn btn-danger btn-sm" ><i class="fas fa-trash">
+                                    </i><span>Delete</span></button>
+                            </form>
+                            </span>
                         </td>
                     </tr>
                 @endforeach
