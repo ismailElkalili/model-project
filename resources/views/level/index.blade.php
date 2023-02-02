@@ -5,6 +5,7 @@
             <h3 class="card-title">
                 Level index
             </h3>
+            <a class="btn btn-info btn-sm float-right" href="{{url('/level/create')}}"> create new level</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">

@@ -25,6 +25,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{url('/level/index')}}" class="btn btn-outline-danger ">cancel</a>
             </div>
         </form>
     </div>
