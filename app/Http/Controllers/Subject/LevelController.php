@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Subject;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LevelController extends Controller
 {
@@ -14,7 +15,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        //
+        $levels = DB::table('levels')->get();
+        return view('level.index')->with('levels',$levels);
     }
 
     /**
