@@ -15,7 +15,8 @@ class SubscribtionController extends Controller
      */
     public function index()
     {
-        return view('subscribition.index');
+        $subscribtion = DB::table('subscribtions')->get();
+        return view('subscribition.index')->with('subscribtion',$subscribtion);
     }
 
     /**
@@ -79,7 +80,7 @@ class SubscribtionController extends Controller
         DB::table('subscribtions')->where('id', '=', $subscribtionID)->update([
             'subscribtion_plan' => $request['subscribtionPlan']
         ]);  
-        return redirect()->action([SubscribtionController::class, 'index']);
+        return redirect('/subscribtions/index');
     }
 
     /**
@@ -88,8 +89,21 @@ class SubscribtionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($subscribtionID)
     {
-        //
+        DB::table('subscribtions')->where('id', $subscribtionID)->delete();
+        return redirect()->back();
     }
+
+    // public function archive($subscribtionID)
+    // {
+    //     DB::table('subscribtions')->where('id', $subscribtionID)->update(['isDeleted' => 1]);
+    //     return redirect('/subscribtions/index');
+    // }
+
+    // public function restore($id)
+    // {
+    //     DB::table('subscribtions')->where('id', $id)->update(['isDeleted' => 0]);
+    //     return redirect('/subscribtions/index');
+    // }
 }
