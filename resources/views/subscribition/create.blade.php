@@ -13,7 +13,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">create</button>
+                <a href="{{url('/subscribtion/index')}}" class="btn btn-outline-danger ">cancel</a>
             </div>
         </form>
     </div>
