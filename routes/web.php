@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Subscribition\SubscribtionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,6 @@ Route::get('/', function () {
 require __DIR__ . '/teacher_route.php';
 require __DIR__ . '/student_route.php';
 require __DIR__ . '/admin.php';
+
+
+
