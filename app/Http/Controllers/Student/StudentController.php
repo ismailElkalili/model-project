@@ -32,7 +32,6 @@ class StudentController extends Controller
     public function create()
     {
         $levels = DB::table('levels')->get();
-        $len='image/DEiM3RnSaKZnfhpJ2MuU2Q4GsSUMEGEkx2SmBXqg.jpg';
         return view('student.create')->with('levels',$levels);
     }
 
@@ -51,9 +50,10 @@ class StudentController extends Controller
             $file = $request->file('image');
             $path =$file->store('/image' , 'public'); 
         }
-
+        $name = $request['student_First_Name'] . " " . $request['student_Father_Name']
+        . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
         DB::table('students')->insert([
-            'student_name' => $request['student_First_Name'],
+            'student_name' => $name,
             'student_email' => $request['email'],
             'student_image' =>$path,
             'student_dob' => $request['dob'],
@@ -62,8 +62,7 @@ class StudentController extends Controller
             'level_id' => $request['levelID']
         ]);
       
-        $name = $request['student_First_Name'] ." ". $request['student_Father_Name']
-        ." ".  $request['student_Grandfather_Name'] ." ". $request['student_Last_Name'];
+      
         return redirect('/student/index');
     }
 
@@ -100,9 +99,14 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($studentsID)
     {
-        //
+        $student = DB::table('students')->where('id', '=', $studentsID)->first();
+        $levels = DB::table('levels')->get();
+
+        return view('student.edit')
+             ->with('student', $student)
+             ->with('levels', $levels);
     }
 
     /**
@@ -112,9 +116,21 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $studentsID)
     {
-        //
+
+        $name = $request['student_First_Name'] . " " . $request['student_Father_Name']
+        . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
+
+        DB::table('students')->where('id', '=', $studentsID)->update([
+            'student_name' => $name,
+            'student_email' => $request['email'],
+            'student_dob' => $request['dob'],
+            'gender' => $request['gender'],
+            'student_phone_number' => $request['phone_number'],
+            'level_id' => $request['levelID']
+        ]);  
+        return redirect('/student/index');
     }
 
     /**

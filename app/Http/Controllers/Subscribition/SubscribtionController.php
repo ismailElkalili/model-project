@@ -90,7 +90,7 @@ class SubscribtionController extends Controller
         DB::table('subscribtions')->where('id', '=', $subscribtionID)->update([
             'subscribtion_plan' => $request['subscribtionPlan']
         ]);  
-        return redirect('/subscribtions/index');
+        return redirect('/subscribtion/index');
     }
 
     /**
