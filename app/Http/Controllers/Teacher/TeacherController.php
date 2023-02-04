@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -14,7 +15,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $teachers = DB::table('teachers')->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
+        return view('teacher.index')->with('teachers', $teachers);
     }
 
     /**
@@ -24,7 +26,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

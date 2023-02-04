@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Subject\LevelController;
 use App\Http\Controllers\Subscribition\SubscribtionController;
+use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(SubscribtionController::class)->group(function () {
@@ -23,4 +24,14 @@ Route::controller(LevelController::class)->group(function () {
     Route::post('/level/update/{levelId}', 'update');
     Route::post('/level/destroy/{levelId}', 'destroy');
     Route::post('/level/archive/{levelId}', 'archive');
+});
+Route::controller(TeacherController::class)->group(function () {
+    Route::get('/teacher/index', 'index');
+    Route::get('/teacher/show/{teacherId}', 'show');
+    Route::get('/teacher/create', 'create');
+    Route::post('/teacher/store', 'store');
+    Route::get('/teacher/edit/{teacherId}', 'edit');
+    Route::post('/teacher/update/{teacherId}', 'update');
+    Route::post('/teacher/destroy/{teacherId}', 'destroy');
+    Route::post('/teacher/archive/{teacherId}', 'archive');
 });
