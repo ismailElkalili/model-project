@@ -3,6 +3,7 @@
 use App\Http\Controllers\Subject\LevelController;
 use App\Http\Controllers\Subscribition\SubscribtionController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\TeacherProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(SubscribtionController::class)->group(function () {
@@ -34,4 +35,7 @@ Route::controller(TeacherController::class)->group(function () {
     Route::post('/teacher/update/{teacherId}', 'update');
     Route::post('/teacher/destroy/{teacherId}', 'destroy');
     Route::post('/teacher/archive/{teacherId}', 'archive');
+});
+Route::controller(TeacherProfileController::class)->group(function () {
+    Route::get('/teacherprofile/{teacherId}', 'getProfileData');
 });
