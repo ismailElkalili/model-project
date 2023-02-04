@@ -884,7 +884,7 @@
                         @yield('forms')
                         @yield('tabels')
                         @yield('dash')
-
+                        @yield('profile')
                         <!-- /.row -->
                     </div><!-- /.container-fluid -->
                 </div>

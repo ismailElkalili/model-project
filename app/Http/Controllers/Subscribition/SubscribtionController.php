@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Subscribition;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubscribtionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\isTrue;
 
 class SubscribtionController extends Controller
 {
@@ -35,13 +38,20 @@ class SubscribtionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubscribtionRequest $request)
     {
-        
-        DB::table('subscribtions')->insert([
+       
+        if(DB::table('subscribtions')->insert([
             'subscribtion_plan' => $request['subscribtionPlan']
-        ]);
-        return redirect()->action([SubscribtionController::class, 'index']);
+        ])){
+            
+            return redirect('/subscribtion/index')->with('mes',"Add Succesed");
+        }else{
+
+            return redirect('/subscribtion/create')->with('mes',"Add Succesed");
+        }
+       
+        
     }
 
     /**
@@ -92,7 +102,7 @@ class SubscribtionController extends Controller
     public function destroy($subscribtionID)
     {
         DB::table('subscribtions')->where('id', $subscribtionID)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('mes',"Deleted Succesed");
     }
 
     // public function archive($subscribtionID)

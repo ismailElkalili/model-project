@@ -5,6 +5,7 @@
             <h3 class="card-title">
                 Subscribtion index
             </h3>
+            <a class="btn btn-info btn-sm float-right" href="{{url('/subscribtion/create')}}"> create new Subscribtion</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -42,4 +43,16 @@
             </table>
         </div>
     </div>
+    @if (Session::has('mes'))
+        <label class="alert alert-success text-right" id="success-alert">
+            {{ Session::get('mes') }}
+            <button style="margin-left: 5px" type="button" class="close" data-dismiss="alert">&times;</button>
+        </label>
+    @endif
+    <script type="text/javascript">
+        setTimeout(function() {
+            // Closing the alert
+            $('.alert').alert('close');
+        }, 3000);
+    </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -14,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = DB::table('students')->get();
+        return view('student.index')->with('students', $students);
     }
 
     /**
@@ -44,9 +46,25 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function profile($studentID)
     {
-        //
+        $query='SELECT s.* FROM `subjects` AS s WHERE (
+            s.id IN (
+                SELECT c.subject_id FROM `classes` AS c WHERE c.subject_id = s.id AND
+                    (
+                         c.id IN (
+                             SELECT std_s.class_id FROM `std_classes` AS std_s WHERE std_s.class_id = c.id AND std_s.student_id = '.$studentID.'
+                         )
+                     )
+            )
+        )';
+        $student = DB::table('students')->where('id', '=', $studentID)->first();
+        $level = DB::table('levels')->where('id', $student->level_id)->first();
+        $studentClasses = DB::select($query);
+        return view('student.profile')
+            ->with('student', $student)
+            ->with('level', $level)
+            ->with('studentClasses', $studentClasses);
     }
 
     /**
