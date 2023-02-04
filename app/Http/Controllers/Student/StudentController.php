@@ -41,6 +41,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
         if( $request->hasFile('image')){
             $file = $request->file('image');
             $path =$file->store('/image' , 'public'); 
