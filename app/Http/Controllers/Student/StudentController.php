@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function Ramsey\Uuid\v1;
+
 class StudentController extends Controller
 {
     /**
@@ -26,7 +28,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $levels = DB::table('levels')->get();
+        $len='image/DEiM3RnSaKZnfhpJ2MuU2Q4GsSUMEGEkx2SmBXqg.jpg';
+        return view('student.create')->with('levels',$levels);
     }
 
     /**
@@ -37,7 +41,24 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if( $request->hasFile('image')){
+            $file = $request->file('image');
+            $path =$file->store('/image' , 'public'); 
+        }
+
+        DB::table('students')->insert([
+            'student_name' => $request['student_First_Name'],
+            'student_email' => $request['email'],
+            'student_image' =>$path,
+            'student_dob' => $request['dob'],
+            'gender' => $request['gender'],
+            'student_phone_number' => $request['phone_number'],
+            'level_id' => $request['levelID']
+        ]);
+      
+        $name = $request['student_First_Name'] ." ". $request['student_Father_Name']
+        ." ".  $request['student_Grandfather_Name'] ." ". $request['student_Last_Name'];
+        return redirect('/student/index');
     }
 
     /**

@@ -24,7 +24,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg"
+                                <img class="profile-user-img img-fluid img-circle" style="width: 125px; height: 125px;" src="{{ asset('storage/'.$student->student_image)}}"
                                     alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{ $student->student_name }}</h3>
@@ -118,7 +118,7 @@
 
                                 <div class="tab-pane" id="exams">
 
-                                    <h1>Here We Make Code For Exams Student</h1>
+                                   
 
                                 </div>
 
