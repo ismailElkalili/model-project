@@ -38,7 +38,28 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('/image', 'public');
+        }
+        $name = $request['teacher_First_Name'] . " " . $request['teacher_second_Name']
+            . " " . $request['teacher_third_Name'] . " " . $request['teacher_Last_Name'];
+        DB::table('teachers')->insert([
+            'teacher_name' => $name,
+            'teacher_email' => $request['email'],
+            'teacher_image' => $path,
+            'Dob' => $request['dob'],
+            'qualification' => $request['qualification'],
+            'gender' => $request['gender'],
+            'teacher_phone_number' => $request['phone_number'],
+            'level_id' => $request['levelID']
+        ]);
+
+
+        return redirect('/teacher/index');
     }
 
     /**

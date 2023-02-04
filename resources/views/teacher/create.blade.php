@@ -11,22 +11,22 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="teacher-first-Name">First Name</label>
-                        <input type="text" class="form-control" id="teacher_First_Name" name="student_First_Name"
+                        <input type="text" class="form-control" id="teacher_First_Name" name="teacher_First_Name"
                             placeholder="Enter First Name">
                     </div>
                     <div class="col-3">
                         <label for="student-Name">Father Name</label>
-                        <input type="text" class="form-control" id="teacher_second_Name" name="student_Father_Name"
+                        <input type="text" class="form-control" id="teacher_second_Name" name="teacher_second_Name"
                             placeholder="Enter Father Name">
                     </div>
                     <div class="col-3">
                         <label for="student-Name">Grandfather Name</label>
-                        <input type="text" class="form-control" id="teacher_third_Name" name="student_Grandfather_Name"
+                        <input type="text" class="form-control" id="teacher_third_Name" name="teacher_third_Name"
                             placeholder="Enter Grandfather Name">
                     </div>
                     <div class="col-3">
                         <label for="student-Name">Last Name</label>
-                        <input type="text" class="form-control" id="teacher_Last_Name" name="student_Last_Name"
+                        <input type="text" class="form-control" id="teacher_Last_Name" name="teacher_Last_Name"
                             placeholder="Enter Last Name">
                     </div>
 
