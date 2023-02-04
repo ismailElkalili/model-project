@@ -26,7 +26,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-
+        $levels = DB::table('levels')->get();
+        return view('teacher.create')->with('levels', $levels);
     }
 
     /**
@@ -37,7 +38,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
