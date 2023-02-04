@@ -3,9 +3,9 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                Level index
+                teacher index
             </h3>
-            <a class="btn btn-info btn-sm float-right" href="{{ url('/level/create') }}"> create new level</a>
+            <a class="btn btn-info btn-sm float-right" href="{{ url('/teacher/create') }}"> create new teacher</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -22,16 +22,16 @@
                         <td>{{ $item->teacher_name }}</td>
                         <td>{{ $item->teacher_email }}</td>
                         @if (is_null($item->teacher_phone_number))
-                        <td>not exist</td>
+                            <td>not exist</td>
                         @else
                             <td>{{ $item->teacher_phone_number }}</td>
                         @endif
                         <td>
-                            {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
-                            <i class="fas fa-folder">
-                            </i>
-                            View
-                        </a> --}}
+                            <a class="btn btn-primary btn-sm" href="{{ url('/teacherprofile/' . $item->id) }}">
+                                <i class="fas fa-user">
+                                </i>
+                                View
+                            </a>
                             <a class="btn btn-info btn-sm" href="{{ url('/teacher/edit/' . $item->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
