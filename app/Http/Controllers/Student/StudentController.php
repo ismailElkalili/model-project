@@ -18,7 +18,10 @@ class StudentController extends Controller
     public function index()
     {
         $students = DB::table('students')->get();
-        return view('student.index')->with('students', $students);
+        $levels = DB::table('levels')->get();
+        return view('student.index')
+        ->with('students', $students)
+        ->with('levels',$levels);
     }
 
     /**
@@ -120,8 +123,21 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($studentsID)
     {
-        //
+        DB::table('students')->where('id', $studentsID)->delete();
+        return redirect()->back()->with('mes',"Deleted Succesed");
     }
+        
+    // public function archive($studentsID)
+    // {
+    //     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 1]);
+    //     return redirect('/students/index');
+    // }
+
+    // public function restore($studentsID)
+    // {
+    //     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 0]);
+    //     return redirect('/students/index');
+    // }
 }

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('student_image')->nullable();
             $table->date('student_dob');
             $table->boolean('gender');
-            $table->integer('student_phone_number')->nullable();
+            $table->bigInteger('student_phone_number')->nullable();
             $table->unsignedBigInteger('level_id')->nullable();
             $table->timestamps();
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();

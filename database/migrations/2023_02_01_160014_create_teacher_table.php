@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->boolean('gender');
             $table->string('teacher_image')->nullable();
             $table->string('qualification')->nullable();
-            $table->integer('teacher_phone_number')->nullable();
+            $table->bigInteger('teacher_phone_number')->nullable();
             $table->unsignedBigInteger('level_id')->nullable();
             $table->timestamps();
             //foreign key

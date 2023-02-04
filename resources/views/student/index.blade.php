@@ -35,13 +35,24 @@
                             @else
                                 <td>Female</td>
                             @endif
+
                             @if (is_null($item->student_phone_number))
                                 <td>No number</td>
                             @else
                                 <td>{{ $item->student_phone_number }}</td>
                             @endif
 
-                            <td>{{ $item->level_id }}</td>
+                            @if (is_null($item->level_id))
+                                <td>No level</td>
+                            @else
+                                @foreach ($levels as $itemLevel)
+                                    @if ($itemLevel->id == $item->level_id)
+                                        <td>{{ $itemLevel->name }}</td>
+                                    @endif
+                                @endforeach
+                            @endif
+
+
                             <td>
                                 <form class="form-inline" method="POST" action="{{ URL('/student/destroy/' . $item->id) }}">
                                     @csrf
