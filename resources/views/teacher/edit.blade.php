@@ -6,7 +6,7 @@
             <h3 class="card-title">Edit <strong>{{ $teacher->teacher_name }}</strong> info</h3>
         </div>
         @php
-            $name= explode(' ', $teacher->teacher_name);
+            $name = explode(' ', $teacher->teacher_name);
             $qualification = ['bachelor', 'Master', 'Phd'];
             $gender = ['male', 'female'];
         @endphp
@@ -19,6 +19,7 @@
                         <img class="profile-user-img img-fluid img-circle"
                             style="width: 200px; height: 200px;align-content: center;justify-content: center;position: relative"
                             src="{{ asset('storage/' . $teacher->teacher_image) }}" alt="User profile picture">
+                        <input hidden value="{{ $teacher->teacher_image }}" name="old_image">
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 30px">
@@ -26,7 +27,7 @@
                         <label class="block mb-4">
                             <span class="sr-only">Choose File</span>
                             <input type="file" name="image"
-                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                         </label>
                     </div>
                 </div>
@@ -45,31 +46,31 @@
                     <div class="col-3">
                         <label for="student-Name">Father Name</label>
                         @if (is_null($name[1]))
-                            <input type="text" class="form-control" id="teacher_First_Name" name="teacher_First_Name"
+                            <input type="text" class="form-control" id="teacher_second_Name" name="teacher_second_Name"
                                 placeholder="Enter First Name">
                         @else
-                            <input type="text" value="{{ $name[1] }}" class="form-control" id="teacher_First_Name"
-                                name="teacher_First_Name" placeholder="Enter First Name">
+                            <input type="text" value="{{ $name[1] }}" class="form-control" id="teacher_second_Name"
+                                name="teacher_second_Name" placeholder="Enter First Name">
                         @endif
                     </div>
                     <div class="col-3">
                         <label for="student-Name">Grandfather Name</label>
                         @if (is_null($name[2]))
-                        <input type="text" class="form-control" id="teacher_First_Name" name="teacher_First_Name"
-                            placeholder="Enter First Name">
-                    @else
-                        <input type="text" value="{{ $name[2] }}" class="form-control" id="teacher_First_Name"
-                            name="teacher_First_Name" placeholder="Enter First Name">
-                    @endif
+                            <input type="text" class="form-control" id="teacher_third_Name" name="teacher_third_Name"
+                                placeholder="Enter First Name">
+                        @else
+                            <input type="text" value="{{ $name[2] }}" class="form-control" id="teacher_third_Name"
+                                name="teacher_third_Name" placeholder="Enter First Name">
+                        @endif
                     </div>
                     <div class="col-3">
                         <label for="student-Name">Last Name</label>
                         @if (is_null($name[3]))
-                            <input type="text" class="form-control" id="teacher_First_Name" name="teacher_First_Name"
+                            <input type="text" class="form-control" id="teacher_Last_Name" name="teacher_Last_Name"
                                 placeholder="Enter First Name">
                         @else
-                            <input type="text" value="{{ $name[3] }}" class="form-control" id="teacher_First_Name"
-                                name="teacher_First_Name" placeholder="Enter First Name">
+                            <input type="text" value="{{ $name[3] }}" class="form-control" id="teacher_Last_Name"
+                                name="teacher_Last_Name" placeholder="Enter First Name">
                         @endif
                     </div>
 

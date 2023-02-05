@@ -103,14 +103,19 @@ class TeacherController extends Controller
     {
 
         $request->validate([
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
         ]);
+        $path = null;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = $file->store('/image', 'public');
         }
         $name = $request['teacher_First_Name'] . " " . $request['teacher_second_Name']
             . " " . $request['teacher_third_Name'] . " " . $request['teacher_Last_Name'];
+    
+        if (is_null($path)) {
+            $path = $request['old_image'];
+        }
         DB::table('teachers')->where('id', $id)->update([
             'teacher_name' => $name,
             'teacher_email' => $request['email'],
