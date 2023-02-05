@@ -58,7 +58,7 @@
                 <div class="row" style="margin-top: 10px">
 
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group custom-select">
                             <label>Gander</label>
                             <select class="form-control" name="gender" id="gender">
                                 @if ($student->gender == 0)
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label>Level</label>
-                        <select class="form-control" name="levelID" id="levelID">
+                        <select class="form-control custom-select" name="levelID" id="levelID">
                             @foreach ($levels as $item)
                                 @if ($item->id == $student->level_id)
                                     <option selected value={{ $item->id }}>{{ $item->name }}</option>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Subject;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClassController extends Controller
 {
@@ -14,7 +15,13 @@ class ClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = DB::table('classes')->get();
+        $teachers = DB::table('teachers')->get();
+        $subjects = DB::table('subjects')->get();
+        return view('class.index')
+        ->with('classes',$classes)
+        ->with('teachers',$teachers)
+        ->with('subjects',$subjects);
     }
 
     /**

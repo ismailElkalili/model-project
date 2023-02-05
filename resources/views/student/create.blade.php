@@ -61,7 +61,7 @@
                     <div class="col-sm-6" >
                         <div class="form-group" >
                             <label>Gander</label>
-                            <select class="form-control" name="gender" id="gender">
+                            <select class="form-control custom-select" name="gender" id="gender">
                                 <option value=0>Male</option>
                                 <option value=1>Female</option>
                             </select>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label>Level</label>
-                        <select class="form-control" name="levelID" id="levelID">
+                        <select class="form-control custom-select" name="levelID" id="levelID">
                             @foreach ($levels as $item)
                             <option value={{$item->id}}>{{$item->name}}</option>
                             @endforeach
