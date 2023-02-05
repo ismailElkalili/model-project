@@ -31,7 +31,12 @@ class ClassController extends Controller
      */
     public function create()
     {
-        //
+    
+        $teachers = DB::table('teachers')->get();
+        $subjects = DB::table('subjects')->get();
+        return view('class.create')
+        ->with('teachers',$teachers)
+        ->with('subjects',$subjects);
     }
 
     /**
@@ -42,7 +47,20 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teachers = DB::table('teachers')->get();
+        $subjects = DB::table('subjects')->get();
+
+        $classes = DB::table('classes')->insert([
+            'class_name' => $request['classesName'],
+            'state' => $request['state'],
+            'teacher_id' => $request['teacherID'],
+            'subject_id' => $request['subjectID'],
+        ]);
+
+        return redirect('/classes/index')
+        ->with('classes',$classes)
+        ->with('teachers',$teachers)
+        ->with('subjects',$subjects);
     }
 
     /**
@@ -62,9 +80,15 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($classID)
     {
-        //
+        $classes = DB::table('classes')->where('id', $classID)->first();
+        $teachers = DB::table('teachers')->get();
+        $subjects = DB::table('subjects')->get();
+        return view('class.edit')
+        ->with('classes',$classes)
+        ->with('teachers',$teachers)
+        ->with('subjects',$subjects);
     }
 
     /**
@@ -74,9 +98,22 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $classID)
     {
-        //
+        $teachers = DB::table('teachers')->get();
+        $subjects = DB::table('subjects')->get();
+
+        $classes = DB::table('classes')->where('id',$classID)->update([
+            'class_name' => $request['classesName'],
+            'state' => $request['state'],
+            'teacher_id' => $request['teacherID'],
+            'subject_id' => $request['subjectID'],
+        ]);
+
+        return redirect('/classes/index')
+        ->with('classes',$classes)
+        ->with('teachers',$teachers)
+        ->with('subjects',$subjects);
     }
 
     /**
@@ -85,8 +122,21 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($classID)
     {
-        //
+        DB::table('classes')->where('id', $classID)->delete();
+        return redirect()->back()->with('mes',"Deleted Succesed");
     }
+
+    // public function archive($classID)
+    // {
+    //     DB::table('classes')->where('id', $classID)->update(['isDeleted' => 1]);
+    //     return redirect('/classes/index');
+    // }
+
+    // public function restore($id)
+    // {
+    //     DB::table('classes')->where('id', $id)->update(['isDeleted' => 0]);
+    //     return redirect('/classes/index');
+    // }
 }
