@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Subject\ClassController;
 use App\Http\Controllers\Subject\LevelController;
 use App\Http\Controllers\Subscribition\SubscribtionController;
 use App\Http\Controllers\Teacher\TeacherController;
@@ -38,4 +39,15 @@ Route::controller(TeacherController::class)->group(function () {
 });
 Route::controller(TeacherProfileController::class)->group(function () {
     Route::get('/teacherprofile/{teacherId}', 'getProfileData');
+});
+
+Route::controller(ClassController::class)->group(function () {
+    Route::get('/classes/index', 'index');
+    Route::get('/classes/show/{classesID}', 'show');
+    Route::get('/classes/create', 'create');
+    Route::post('/classes/store', 'store');
+    Route::get('/classes/edit/{classesID}', 'edit');
+    Route::post('/classes/update/{classesID}', 'update');
+    Route::post('/classes/destroy/{classesID}', 'destroy');
+    Route::post('/classes/archive/{classesID}', 'archive');
 });
