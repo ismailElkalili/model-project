@@ -2,7 +2,7 @@
 @section('forms')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add Subscribition</h3>
+            <h3 class="card-title">Add Level</h3>
         </div>
         {{-- @if ($errors->any())
             <div class="alert alert-danger">
@@ -20,7 +20,7 @@
                     <label for="level-Name">level Name</label>
                     @if ($errors->any())
                         <input type="text" class="form-control" id="level_Name" name="level_Name"
-                            placeholder="Enter level Name" style="border-color: red" >
+                            placeholder="Enter level Name" style="border-color: red">
                     @else
                         <input type="text" class="form-control" id="level_Name" name="level_Name"
                             placeholder="Enter level Name">
@@ -32,7 +32,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">create</button>
-                <a href="{{url('/level/index')}}" class="btn btn-outline-danger ">cancel</a>
+                <a href="{{ url('/level/index') }}" class="btn btn-outline-danger ">cancel</a>
             </div>
         </form>
     </div>

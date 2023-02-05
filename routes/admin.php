@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Subject\ClassController;
 use App\Http\Controllers\Subject\LevelController;
+use App\Http\Controllers\Subject\SubjectController;
 use App\Http\Controllers\Subscribition\SubscribtionController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\TeacherProfileController;
@@ -50,4 +51,14 @@ Route::controller(ClassController::class)->group(function () {
     Route::post('/classes/update/{classesID}', 'update');
     Route::post('/classes/destroy/{classesID}', 'destroy');
     Route::post('/classes/archive/{classesID}', 'archive');
+});
+Route::controller(SubjectController::class)->group(function () {
+    Route::get('/subject/index', 'index');
+    Route::get('/subject/show/{classesID}', 'show');
+    Route::get('/subject/create', 'create');
+    Route::post('/subject/store', 'store');
+    Route::get('/subject/edit/{subjectId}', 'edit');
+    Route::post('/subject/update/{id}', 'update');
+    Route::post('/subject/destroy/{id}', 'destroy');
+    Route::post('/subject/archive/{classesID}', 'archive');
 });
