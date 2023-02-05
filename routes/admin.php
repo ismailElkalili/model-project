@@ -33,9 +33,9 @@ Route::controller(TeacherController::class)->group(function () {
     Route::get('/teacher/create', 'create');
     Route::post('/teacher/store', 'store');
     Route::get('/teacher/edit/{teacherId}', 'edit');
-    Route::post('/teacher/update/{teacherId}', 'update');
-    Route::post('/teacher/destroy/{teacherId}', 'destroy');
-    Route::post('/teacher/archive/{teacherId}', 'archive');
+    Route::post('/teacher/update/{id}', 'update');
+    Route::post('/teacher/destroy/{id}', 'destroy');
+    Route::post('/teacher/archive/{id}', 'archive');
 });
 Route::controller(TeacherProfileController::class)->group(function () {
     Route::get('/teacherprofile/{teacherId}', 'getProfileData');

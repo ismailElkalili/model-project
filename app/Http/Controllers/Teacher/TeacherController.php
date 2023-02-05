@@ -79,9 +79,17 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($teacherId)
     {
-        //
+        $teacher = DB::table('teachers')->where('id', $teacherId)->first();
+        $level = DB::table('levels')->get();
+
+
+        return view('teacher.edit')->with([
+            'teacher' => $teacher,
+            'level' => $level
+
+        ]);
     }
 
     /**
@@ -93,7 +101,29 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('/image', 'public');
+        }
+        $name = $request['teacher_First_Name'] . " " . $request['teacher_second_Name']
+            . " " . $request['teacher_third_Name'] . " " . $request['teacher_Last_Name'];
+        DB::table('teachers')->where('id', $id)->update([
+            'teacher_name' => $name,
+            'teacher_email' => $request['email'],
+            'teacher_image' => $path,
+            'Dob' => $request['dob'],
+            'qualification' => $request['qualification'],
+            'gender' => $request['gender'],
+            'teacher_phone_number' => $request['phone_number'],
+            'level_id' => $request['levelID']
+        ]);
+
+
+        return redirect('/teacher/index');
     }
 
     /**
@@ -104,6 +134,7 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('teachers')->where('id', $id)->delete();
+        return redirect()->back();
     }
 }
