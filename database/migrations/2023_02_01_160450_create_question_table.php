@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('right_answer');
             $table->string('question_type');
             $table->integer('question_mark');
+            $table->boolean('isDelete')->default(0);
             $table->unsignedBigInteger('exam_id')->nullable();
             $table->timestamps();
             $table->foreign('exam_id')->references('id')->on('exams')->nullOnDelete();

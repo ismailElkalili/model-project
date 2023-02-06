@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('subject_name');
             $table->unsignedBigInteger('level_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();
         });

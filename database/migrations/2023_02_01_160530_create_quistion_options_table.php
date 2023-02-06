@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('op4');
             $table->unsignedBigInteger('exam_id')->nullable();
             $table->unsignedBigInteger('question_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('exam_id')->references('id')->on('exams')->nullOnDelete();
             $table->foreign('question_id')->references('id')->on('questions')->nullOnDelete();

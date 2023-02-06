@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->boolean('gender');
             $table->bigInteger('student_phone_number')->nullable();
             $table->unsignedBigInteger('level_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();
         });

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->boolean('exam_state');
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->unsignedBigInteger('subject_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('teacher_id')->references('id')->on('teachers')->nullOnDelete();
             $table->foreign('subject_id')->references('id')->on('subjects')->nullOnDelete();

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->boolean('state');
             $table->unsignedBigInteger('sub_plan_id')->nullable();
             $table->unsignedBigInteger('student_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('sub_plan_id')->references('id')->on('subscribtions')->nullOnDelete();
             $table->foreign('student_id')->references('id')->on('students')->nullOnDelete();

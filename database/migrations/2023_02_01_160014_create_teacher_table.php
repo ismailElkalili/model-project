@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('qualification')->nullable();
             $table->bigInteger('teacher_phone_number')->nullable();
             $table->unsignedBigInteger('level_id')->nullable();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
             //foreign key
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();

@@ -14,7 +14,8 @@ return new class extends Migration {
     {
         Schema::create('subscribtions', function (Blueprint $table) {
             $table->id();
-            $table->string('subscribtion_plan');
+            $table->string('subscribtion_plan')->unique();
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }
