@@ -885,6 +885,7 @@
                         @yield('tabels')
                         @yield('dash')
                         @yield('profile')
+                        @yield('archive')
                         <!-- /.row -->
                     </div><!-- /.container-fluid -->
                 </div>

@@ -54,7 +54,7 @@
 
 
                             <td>
-                                <form class="form-inline" method="POST" action="{{ URL('/student/destroy/' . $item->id) }}">
+                                <form class="form-inline" method="POST" action="{{ URL('/student/archive/' . $item->id) }}">
                                     @csrf
                                     <a class="btn btn-primary btn-sm" href="{{ url('/student/profile/' . $item->id) }}">
                                         <i class="fas fa-folder">

@@ -1,5 +1,5 @@
 @extends('main')
-@section('tabels')
+@section('archive')
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
@@ -49,7 +49,7 @@
                         @endif
 
                         <td>
-                            <form class="form-inline" method="POST" action="{{ URL('/classes/archive/' . $item->id) }}">
+                            <form class="form-inline" method="POST" action="{{ URL('/classes/restore/' . $item->id) }}">
                                 @csrf
                                 <a class="btn btn-info btn-sm" href="{{ url('/classes/edit/' . $item->id) }}">
                                     <i class="fas fa-pencil-alt">
@@ -58,7 +58,7 @@
                                 </a>
                                 <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
-                                    Delete</button>
+                                    Restore</button>
                             </form>
                         </td>
                     </tr>

@@ -15,7 +15,7 @@ class ClassController extends Controller
      */
     public function index()
     {
-        $classes = DB::table('classes')->get();
+        $classes = DB::table('classes')->where('isDelete', 0)->get();
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
         return view('class.index')
@@ -128,15 +128,5 @@ class ClassController extends Controller
         return redirect()->back()->with('mes',"Deleted Succesed");
     }
 
-    // public function archive($classID)
-    // {
-    //     DB::table('classes')->where('id', $classID)->update(['isDeleted' => 1]);
-    //     return redirect('/classes/index');
-    // }
-
-    // public function restore($id)
-    // {
-    //     DB::table('classes')->where('id', $id)->update(['isDeleted' => 0]);
-    //     return redirect('/classes/index');
-    // }
+    
 }

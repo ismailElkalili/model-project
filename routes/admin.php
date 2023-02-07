@@ -49,8 +49,7 @@ Route::controller(ClassController::class)->group(function () {
     Route::post('/classes/store', 'store');
     Route::get('/classes/edit/{classesID}', 'edit');
     Route::post('/classes/update/{classesID}', 'update');
-    Route::post('/classes/destroy/{classesID}', 'destroy');
-    Route::post('/classes/archive/{classesID}', 'archive');
+  
 });
 Route::controller(SubjectController::class)->group(function () {
     Route::get('/subject/index', 'index');
@@ -62,3 +61,4 @@ Route::controller(SubjectController::class)->group(function () {
     Route::post('/subject/destroy/{id}', 'destroy');
     Route::post('/subject/archive/{classesID}', 'archive');
 });
+

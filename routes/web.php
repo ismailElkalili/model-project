@@ -23,6 +23,7 @@ Route::get('/', function () {
 require __DIR__ . '/teacher_route.php';
 require __DIR__ . '/student_route.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/archive.php';
 
 
 
