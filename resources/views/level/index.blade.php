@@ -30,7 +30,7 @@
                                 Edit
                             </a>
                             <span>
-                            <form style="display: inline"  method="POST" action="{{ url('/level/archive/' . $item->id) }}">
+                            <form style="display: inline"  method="POST" action="{{ url('/level_archive/archive/' . $item->id) }}">
                                 @csrf
                                 <button type="sumbit" class="btn btn-danger btn-sm" ><i class="fas fa-trash">
                                     </i><span>Delete</span></button>

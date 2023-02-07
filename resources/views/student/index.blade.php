@@ -48,13 +48,16 @@
                                 @foreach ($levels as $itemLevel)
                                     @if ($itemLevel->id == $item->level_id)
                                         <td>{{ $itemLevel->name }}</td>
+                                    @else
+                                        <td>No level</td>
                                     @endif
                                 @endforeach
                             @endif
 
 
                             <td>
-                                <form class="form-inline" method="POST" action="{{ URL('/student/archive/' . $item->id) }}">
+                                <form class="form-inline" method="POST"
+                                    action="{{ URL('/student_archive/archive/' . $item->id) }}">
                                     @csrf
                                     <a class="btn btn-primary btn-sm" href="{{ url('/student/profile/' . $item->id) }}">
                                         <i class="fas fa-folder">

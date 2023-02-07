@@ -11,7 +11,7 @@ class SubjectArchiveController extends Controller
     public function indexSubjectArchive()
     {
         $subjects = DB::table('subjects')->where('isDelete', 1)->get();
-        $levels = DB::table('levels')->get();
+        $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('archive.subject_archive')
             ->with('subjects', $subjects)
             ->with('levels', $levels);

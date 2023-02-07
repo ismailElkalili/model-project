@@ -9,7 +9,7 @@ class TeacherArchiveController extends Controller
 {
     public function indexTeacherArchive()
     {
-        $teachers = DB::table('teachers')->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
+        $teachers = DB::table('teachers')->where('isDelete', 1)->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
         return view('archive.teacher_archive')->with('teachers', $teachers);
     }
 

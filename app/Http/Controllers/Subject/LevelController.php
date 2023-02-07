@@ -16,7 +16,7 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = DB::table('levels')->get();
+        $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('level.index')->with('levels', $levels);
     }
 
@@ -95,16 +95,6 @@ class LevelController extends Controller
         return redirect('/level/index');
     }
 
-    public function archive($levelId)
-    {
-        DB::table('levels')->where('id', $levelId)->update(['isDelete' => 1]);
-        return redirect('/levels/index');
-    }
 
-    public function restore($levelId)
-    {
-        DB::table('levels')->where('id', $levelId)->update(['isDelete' => 0]);
-        return redirect('/levels/index');
-    }
 
 }

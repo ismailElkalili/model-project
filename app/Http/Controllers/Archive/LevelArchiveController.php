@@ -17,12 +17,12 @@ class LevelArchiveController extends Controller
     public function archive($levelID)
     {
         DB::table('levels')->where('id', $levelID)->update(['isDelete' => 1]);
-        return redirect('/exam/index');
+        return redirect('/level/index');
     }
 
     public function restore($levelID)
     {
         DB::table('levels')->where('id', $levelID)->update(['isDelete' => 0]);
-        return redirect('/exam/index');
+        return redirect('/level/index');
     }
 }

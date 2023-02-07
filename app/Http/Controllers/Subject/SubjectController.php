@@ -17,8 +17,8 @@ class SubjectController extends Controller
 
     public function index()
     {
-        $subjects = DB::table('subjects')->get();
-        $levels = DB::table('levels')->get();
+        $subjects = DB::table('subjects')->where('isDelete', 0)->get();
+        $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('subject.index')->with('subjects', $subjects)->with('levels', $levels);
     }
 

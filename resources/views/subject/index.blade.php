@@ -25,6 +25,8 @@
                             @foreach ($levels as $level)
                                 @if ($item->level_id == $level->id)
                                     <td> {{ $level->name }} </td>
+                                @else
+                                    <td> not assign yet</td>
                                 @endif
                             @endforeach
                         @endif
@@ -41,7 +43,7 @@
                             </a>
                             <span>
                                 <form style="display: inline" method="POST"
-                                    action="{{ url('/subject/archive/' . $item->id) }}">
+                                    action="{{ url('/subject_archive/archive/' . $item->id) }}">
                                     @csrf
                                     <button type="sumbit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
                                         </i><span>Delete</span></button>

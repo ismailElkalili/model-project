@@ -10,7 +10,7 @@ class StudentArchiveController extends Controller
     public function indexStudentArchive()
     {
         $students = DB::table('students')->where('isDelete', 1)->get();
-        $levels = DB::table('levels')->get();
+        $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('archive.student_archive')
             ->with('students', $students)
             ->with('levels', $levels);
