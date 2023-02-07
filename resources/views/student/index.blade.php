@@ -45,16 +45,18 @@
                             @if (is_null($item->level_id))
                                 <td>No level</td>
                             @else
-                                @foreach ($levels as $itemLevel)
-                                    @if ($itemLevel->id == $item->level_id)
-                                        <td>{{ $itemLevel->name }}</td>
-                                    @else
-                                        <td>No level</td>
-                                    @endif
-                                @endforeach
+                                @if ($levels->count() == 0)
+                                    <td>No level</td>
+                                @else
+                                    @foreach ($levels as $itemLevel)
+                                        @if ($itemLevel->id == $item->level_id)
+                                            <td>{{ $itemLevel->name }}</td>
+                                        @elseif($itemLevel->id != $item->level_id && $itemLevel->id != null)
+                                            <td>No level</td>
+                                        @endif
+                                    @endforeach
+                                @endif
                             @endif
-
-
                             <td>
                                 <form class="form-inline" method="POST"
                                     action="{{ URL('/student_archive/archive/' . $item->id) }}">
