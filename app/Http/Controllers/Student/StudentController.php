@@ -20,8 +20,8 @@ class StudentController extends Controller
         $students = DB::table('students')->get();
         $levels = DB::table('levels')->get();
         return view('student.index')
-        ->with('students', $students)
-        ->with('levels',$levels);
+            ->with('students', $students)
+            ->with('levels', $levels);
     }
 
     /**
@@ -32,7 +32,7 @@ class StudentController extends Controller
     public function create()
     {
         $levels = DB::table('levels')->get();
-        return view('student.create')->with('levels',$levels);
+        return view('student.create')->with('levels', $levels);
     }
 
     /**
@@ -46,23 +46,23 @@ class StudentController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
         ]);
-        if( $request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $path =$file->store('/image' , 'public'); 
+            $path = $file->store('/image', 'public');
         }
         $name = $request['student_First_Name'] . " " . $request['student_Father_Name']
-        . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
+            . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
         DB::table('students')->insert([
             'student_name' => $name,
             'student_email' => $request['email'],
-            'student_image' =>$path,
+            'student_image' => $path,
             'student_dob' => $request['dob'],
             'gender' => $request['gender'],
             'student_phone_number' => $request['phone_number'],
             'level_id' => $request['levelID']
         ]);
-      
-      
+
+
         return redirect('/student/index');
     }
 
@@ -72,27 +72,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function profile($studentID)
-    {
-        $query='SELECT s.* FROM `subjects` AS s WHERE (
-            s.id IN (
-                SELECT c.subject_id FROM `classes` AS c WHERE c.subject_id = s.id AND
-                    (
-                         c.id IN (
-                             SELECT std_s.class_id FROM `std_classes` AS std_s WHERE std_s.class_id = c.id AND std_s.student_id = '.$studentID.'
-                         )
-                     )
-            )
-        )';
-        $student = DB::table('students')->where('id', '=', $studentID)->first();
-        $level = DB::table('levels')->where('id', $student->level_id)->first();
-        $studentClasses = DB::select($query);
-        return view('student.profile')
-            ->with('student', $student)
-            ->with('level', $level)
-            ->with('studentClasses', $studentClasses);
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      *
@@ -105,8 +85,8 @@ class StudentController extends Controller
         $levels = DB::table('levels')->get();
 
         return view('student.edit')
-             ->with('student', $student)
-             ->with('levels', $levels);
+            ->with('student', $student)
+            ->with('levels', $levels);
     }
 
     /**
@@ -120,7 +100,7 @@ class StudentController extends Controller
     {
 
         $name = $request['student_First_Name'] . " " . $request['student_Father_Name']
-        . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
+            . " " . $request['student_Grandfather_Name'] . " " . $request['student_Last_Name'];
 
         DB::table('students')->where('id', '=', $studentsID)->update([
             'student_name' => $name,
@@ -129,7 +109,7 @@ class StudentController extends Controller
             'gender' => $request['gender'],
             'student_phone_number' => $request['phone_number'],
             'level_id' => $request['levelID']
-        ]);  
+        ]);
         return redirect('/student/index');
     }
 
@@ -142,18 +122,18 @@ class StudentController extends Controller
     public function destroy($studentsID)
     {
         DB::table('students')->where('id', $studentsID)->delete();
-        return redirect()->back()->with('mes',"Deleted Succesed");
+        return redirect()->back()->with('mes', "Deleted Succesed");
     }
-        
-    // public function archive($studentsID)
-    // {
-    //     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 1]);
-    //     return redirect('/students/index');
-    // }
 
-    // public function restore($studentsID)
-    // {
-    //     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 0]);
-    //     return redirect('/students/index');
-    // }
+// public function archive($studentsID)
+// {
+//     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 1]);
+//     return redirect('/students/index');
+// }
+
+// public function restore($studentsID)
+// {
+//     DB::table('students')->where('id', $studentsID)->update(['isDeleted' => 0]);
+//     return redirect('/students/index');
+// }
 }
