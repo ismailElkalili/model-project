@@ -20,7 +20,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->subscribtion_plan }}</td>
                         <td>
-                            <form class="form-inline" method="POST" action="{{ URL('/subscribtion/destroy/' . $item->id) }}">
+                            <form class="form-inline" method="POST" action="{{ URL('/subscribition_archive/archive/' . $item->id) }}">
                                 @csrf
                                 {{--  <a class="btn btn-primary btn-sm" href="{{ url('/subscribtion/show/' . $item->id) }}">
                                 <i class="fas fa-folder">

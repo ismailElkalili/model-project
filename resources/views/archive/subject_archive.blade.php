@@ -1,5 +1,5 @@
 @extends('main')
-@section('tabels')
+@section('archive')
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
@@ -32,10 +32,10 @@
                         @endif
                         <td>
                             {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a> --}}
+                            <i class="fas fa-folder">
+                            </i>
+                            View
+                        </a> --}}
                             <a class="btn btn-info btn-sm" href="{{ url('/subject/edit/' . $item->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
@@ -43,10 +43,10 @@
                             </a>
                             <span>
                                 <form style="display: inline" method="POST"
-                                    action="{{ url('/subject_archive/archive/' . $item->id) }}">
+                                    action="{{ url('/subject_archive/restore/' . $item->id) }}">
                                     @csrf
                                     <button type="sumbit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
-                                        </i><span>Delete</span></button>
+                                        </i><span>Restore</span></button>
                                 </form>
                             </span>
                         </td>

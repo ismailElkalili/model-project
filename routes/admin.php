@@ -25,8 +25,7 @@ Route::controller(LevelController::class)->group(function () {
     Route::post('/level/store', 'store');
     Route::get('/level/edit/{levelId}', 'edit');
     Route::post('/level/update/{levelId}', 'update');
-    Route::post('/level/destroy/{levelId}', 'destroy');
-    Route::post('/level/archive/{levelId}', 'archive');
+
 });
 Route::controller(TeacherController::class)->group(function () {
     Route::get('/teacher/index', 'index');
@@ -35,8 +34,6 @@ Route::controller(TeacherController::class)->group(function () {
     Route::post('/teacher/store', 'store');
     Route::get('/teacher/edit/{teacherId}', 'edit');
     Route::post('/teacher/update/{id}', 'update');
-    Route::post('/teacher/destroy/{id}', 'destroy');
-    Route::post('/teacher/archive/{id}', 'archive');
 });
 Route::controller(TeacherProfileController::class)->group(function () {
     Route::get('/teacherprofile/{teacherId}', 'getProfileData');
@@ -49,8 +46,7 @@ Route::controller(ClassController::class)->group(function () {
     Route::post('/classes/store', 'store');
     Route::get('/classes/edit/{classesID}', 'edit');
     Route::post('/classes/update/{classesID}', 'update');
-    Route::post('/classes/destroy/{classesID}', 'destroy');
-    Route::post('/classes/archive/{classesID}', 'archive');
+  
 });
 Route::controller(SubjectController::class)->group(function () {
     Route::get('/subject/index', 'index');
@@ -59,6 +55,5 @@ Route::controller(SubjectController::class)->group(function () {
     Route::post('/subject/store', 'store');
     Route::get('/subject/edit/{subjectId}', 'edit');
     Route::post('/subject/update/{id}', 'update');
-    Route::post('/subject/destroy/{id}', 'destroy');
-    Route::post('/subject/archive/{classesID}', 'archive');
 });
+

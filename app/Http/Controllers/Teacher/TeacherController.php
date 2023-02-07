@@ -15,7 +15,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = DB::table('teachers')->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
+        $teachers = DB::table('teachers')->where('isDelete', 0)->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
         return view('teacher.index')->with('teachers', $teachers);
     }
 

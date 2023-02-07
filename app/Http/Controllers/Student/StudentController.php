@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +18,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = DB::table('students')->get();
-        $levels = DB::table('levels')->get();
+        $students = DB::table('students')->where('isDelete', 0)->get();
+        $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('student.index')
             ->with('students', $students)
             ->with('levels', $levels);
@@ -41,12 +42,10 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
-        ]);
-        if ($request->hasFile('image')) {
+    
+        if( $request->hasFile('image')){
             $file = $request->file('image');
             $path = $file->store('/image', 'public');
         }
