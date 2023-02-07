@@ -27,7 +27,7 @@ class StudentClassController extends Controller
         $student = DB::table('students')->where('id', '=', $studentID)->first();
         $level = DB::table('levels')->where('id', $student->level_id)->first();
         $studentClasses = DB::select($query);
-        dd([$std_classes,$studentClasses]);
+      
         return view('std_class.index')
             ->with('student', $student)
             ->with('level', $level)

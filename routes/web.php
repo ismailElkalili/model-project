@@ -20,10 +20,10 @@ Route::get('/dash', function () {
 Route::get('/', function () {
     return view('main');
 });
-require __DIR__ . '/teacher_route.php';
-require __DIR__ . '/student_route.php';
-require __DIR__ . '/admin.php';
-require __DIR__ . '/archive.php';
+require __DIR__ . '/my_routes/teacher_route.php';
+require __DIR__ . '/my_routes/student_route.php';
+require __DIR__ . '/my_routes/admin.php';
+require __DIR__ . '/my_routes/archive.php';
 
 
 

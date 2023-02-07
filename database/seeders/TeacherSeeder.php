@@ -16,21 +16,21 @@ class TeacherSeeder extends Seeder
     public function run()
     {
         DB::table('teachers')->insert([
-            'teacher_name' => 'ismail elkhalili',
+            'teacher_name' => 'ismail mohammed abed elkhalili',
             'teacher_email' => 'ismail@gmail.com',
             'Dob' => '1999-10-14',
             'gender' => '0',
             'level_id' => '1'
         ]);
         DB::table('teachers')->insert([
-            'teacher_name' => 'saed el hattab',
+            'teacher_name' => 'saed osama mahmoud el hattab',
             'teacher_email' => 'saed@gmail.com',
             'Dob' => '1999-10-14',
             'gender' => '1',
             'level_id' => '2'
         ]);
         DB::table('teachers')->insert([
-            'teacher_name' => 'ayham hamdan',
+            'teacher_name' => 'ayham abdallah ayham hamdan',
             'teacher_email' => 'ayham@gmail.com',
             'Dob' => '1999-10-14',
             'gender' => '2',

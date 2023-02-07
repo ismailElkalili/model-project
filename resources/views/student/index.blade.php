@@ -43,25 +43,27 @@
                             @endif
 
                             @if (is_null($item->level_id))
-                                <td>No level</td>
+                                <td>null</td>
                             @else
                                 @if ($levels->count() == 0)
-                                    <td>No level</td>
+                                    <td>0</td>
                                 @else
-                                    @foreach ($levels as $itemLevel)
-                                        @if ($itemLevel->id == $item->level_id)
-                                            <td>{{ $itemLevel->name }}</td>
-                                        @elseif($itemLevel->id != $item->level_id && $itemLevel->id != null)
-                                            <td>No level</td>
-                                        @endif
-                                    @endforeach
+                                    @php
+                                        $levelname = 'no level';
+                                        foreach ($levels as $level) {
+                                            if ($level->id == $item->level_id) {
+                                                $levelname = $level->name;
+                                            }
+                                        }
+                                        echo '<td>' . $levelname . '</td>';
+                                    @endphp
                                 @endif
                             @endif
                             <td>
                                 <form class="form-inline" method="POST"
                                     action="{{ URL('/student_archive/archive/' . $item->id) }}">
                                     @csrf
-                                    <a class="btn btn-primary btn-sm" href="{{ url('/stdClass/index/' . $item->id) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ url('/stdClass/profile/' . $item->id) }}">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
