@@ -15,13 +15,13 @@
                         <div class=" col-md-12 custom-file from-control text-center">
                             <label class="block mb-4">
                                 <span class="sr-only">click here to uplaod your image profile</span>
-                                @if ($errors->any())
+                                @if ($errors->has('image'))
                                     <input type="file" name="image"
                                         class="custom-file from-control text-center"style="border-color: red" />
                                 @else
                                     <input type="file" name="image" class="custom-file from-control text-center" />
                                 @endif
-                                @error('teacher_image')
+                                @error('image')
                                     <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
                                         {{ $message }}
                                     </div>
@@ -165,7 +165,7 @@
                     <div class="col-sm-6">
                         <label>Level</label>
                         @if ($errors->any())
-                            <select class=" form-control custom-select" name="level_id"
+                            <select class=" form-control custom-select" name="levelID"
                                 style="border-color: red;margin-top: 15px;">
                                 <option value="">choose level</option>
                                 @foreach ($levels as $level)
@@ -173,14 +173,14 @@
                                 @endforeach
                             </select>
                         @else
-                            <select class=" form-control custom-select" name="level_id" style="margin-top: 15px">
+                            <select class=" form-control custom-select" name="levelID" style="margin-top: 15px">
                                 <option value="">choose level</option>
                                 @foreach ($levels as $level)
                                     <option value="{{ $level->id }}">{{ $level->name }}</option>
                                 @endforeach
                             </select>
                         @endif
-                        @error('subject_level')
+                        @error('levelID')
                             <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">{{ $message }}
                             </div>
                         @enderror
