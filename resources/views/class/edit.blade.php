@@ -9,21 +9,49 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="classesName">Name</label>
-                    <input type="text" class="form-control" value="{{ $classes->class_name }}" id="classesName"
-                        name="classesName" placeholder="Enter classes Name">
+                    @if ($errors->has('classesName'))
+                        <input type="text" name="classesName" class="form-control" id="classesName"
+                            style="border-color: red"placeholder="Enter classes Name" value="{{ $classes->class_name }}" />
+                    @else
+                        <input type="text" class="form-control" value="{{ $classes->class_name }}" id="classesName"
+                            name="classesName" placeholder="Enter classes Name">
+                    @endif
+                    @error('classesName')
+                        <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Teachers</label>
-                        <select class="form-control custom-select" name="teacherID" id="teacherID">
-                            @foreach ($teachers as $teacherItem)
-                                @if ($classes->teacher_id == $teacherItem->id)
-                                    <option selected value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
-                                @else
-                                    <option value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
+                        @if ($errors->has('teacherID'))
+                            <select class=" form-control custom-select" name="teacherID" style="border-color: red;">
+                                @foreach ($teachers as $teacherItem)
+                                    @if ($classes->teacher_id == $teacherItem->id)
+                                        <option selected value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}
+                                        </option>
+                                    @else
+                                        <option value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
+                                    @endif
+                                @endforeach
+                            @else
+                                <select class="form-control custom-select" name="teacherID" id="teacherID">
+                                    @foreach ($teachers as $teacherItem)
+                                        @if ($classes->teacher_id == $teacherItem->id)
+                                            <option selected value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}
+                                            </option>
+                                        @else
+                                            <option value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                        @endif
+                        @error('teacherID')
+                            <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="col-sm-6">
@@ -31,7 +59,8 @@
                         <select class="form-control custom-select" name="subjectID" id="subjectID">
                             @foreach ($subjects as $subjectItem)
                                 @if ($classes->subject_id == $subjectItem->id)
-                                    <option selected value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}</option>
+                                    <option selected value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}
+                                    </option>
                                 @else
                                     <option value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}</option>
                                 @endif
