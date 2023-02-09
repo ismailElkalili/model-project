@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\TeacherRequest;
 
 class TeacherController extends Controller
 {
@@ -36,7 +37,7 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TeacherRequest $request)
     {
         $request->validate([
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
@@ -99,7 +100,7 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TeacherRequest $request, $id)
     {
 
         $request->validate([
@@ -112,7 +113,7 @@ class TeacherController extends Controller
         }
         $name = $request['teacher_First_Name'] . " " . $request['teacher_second_Name']
             . " " . $request['teacher_third_Name'] . " " . $request['teacher_Last_Name'];
-    
+
         if (is_null($path)) {
             $path = $request['old_image'];
         }

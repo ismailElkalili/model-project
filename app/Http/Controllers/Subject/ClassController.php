@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Subject;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ClassRequest;
 use Illuminate\Support\Facades\DB;
 
 class ClassController extends Controller
@@ -19,9 +20,9 @@ class ClassController extends Controller
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
         return view('class.index')
-        ->with('classes',$classes)
-        ->with('teachers',$teachers)
-        ->with('subjects',$subjects);
+            ->with('classes', $classes)
+            ->with('teachers', $teachers)
+            ->with('subjects', $subjects);
     }
 
     /**
@@ -31,12 +32,12 @@ class ClassController extends Controller
      */
     public function create()
     {
-    
+
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
         return view('class.create')
-        ->with('teachers',$teachers)
-        ->with('subjects',$subjects);
+            ->with('teachers', $teachers)
+            ->with('subjects', $subjects);
     }
 
     /**
@@ -45,7 +46,7 @@ class ClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClassRequest $request)
     {
         $subIDAndLevelID = explode('|', $request['subjectID']);
         $teachers = DB::table('teachers')->get();
@@ -60,9 +61,9 @@ class ClassController extends Controller
         ]);
 
         return redirect('/classes/index')
-        ->with('classes',$classes)
-        ->with('teachers',$teachers)
-        ->with('subjects',$subjects);
+            ->with('classes', $classes)
+            ->with('teachers', $teachers)
+            ->with('subjects', $subjects);
     }
 
     /**
@@ -88,9 +89,9 @@ class ClassController extends Controller
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
         return view('class.edit')
-        ->with('classes',$classes)
-        ->with('teachers',$teachers)
-        ->with('subjects',$subjects);
+            ->with('classes', $classes)
+            ->with('teachers', $teachers)
+            ->with('subjects', $subjects);
     }
 
     /**
@@ -100,12 +101,12 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $classID)
+    public function update(ClassRequest $request, $classID)
     {
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
 
-        $classes = DB::table('classes')->where('id',$classID)->update([
+        $classes = DB::table('classes')->where('id', $classID)->update([
             'class_name' => $request['classesName'],
             'state' => $request['state'],
             'teacher_id' => $request['teacherID'],
@@ -113,9 +114,9 @@ class ClassController extends Controller
         ]);
 
         return redirect('/classes/index')
-        ->with('classes',$classes)
-        ->with('teachers',$teachers)
-        ->with('subjects',$subjects);
+            ->with('classes', $classes)
+            ->with('teachers', $teachers)
+            ->with('subjects', $subjects);
     }
 
     /**
@@ -127,8 +128,8 @@ class ClassController extends Controller
     public function destroy($classID)
     {
         DB::table('classes')->where('id', $classID)->delete();
-        return redirect()->back()->with('mes',"Deleted Succesed");
+        return redirect()->back()->with('mes', "Deleted Succesed");
     }
 
-    
+
 }
