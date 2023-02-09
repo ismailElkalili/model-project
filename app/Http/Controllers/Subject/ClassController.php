@@ -47,6 +47,7 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
+        $subIDAndLevelID = explode('|', $request['subjectID']);
         $teachers = DB::table('teachers')->get();
         $subjects = DB::table('subjects')->get();
 
@@ -54,7 +55,8 @@ class ClassController extends Controller
             'class_name' => $request['classesName'],
             'state' => $request['state'],
             'teacher_id' => $request['teacherID'],
-            'subject_id' => $request['subjectID'],
+            'subject_id' => $subIDAndLevelID[0],
+            'level_id' => $subIDAndLevelID[1],
         ]);
 
         return redirect('/classes/index')

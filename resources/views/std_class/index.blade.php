@@ -59,13 +59,8 @@
                             @else
                                 <p class="text-muted">{{ $student->student_phone_number }}</p>
                             @endif
-
-
                         </div>
-
                     </div>
-
-
                 </div>
 
                 <div class="col-md-9">
@@ -75,7 +70,8 @@
                                 <li class="nav-item"><a class="nav-link active" href="#subject"
                                         data-toggle="tab">Subject</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#exams" data-toggle="tab">Exams</a>
+                                <li class="nav-item"><a class="nav-link" href="#SubjectUnSubs" data-toggle="tab">Subjects
+                                        UnSubs</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
@@ -84,8 +80,9 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="subject">
-                                    @if (empty($studentClasses))
-                                        <h1>No Classes For Student</h1>
+                                    {{--  /////////////////////// Subject Accpteed  /////////////////////// --}}
+                                    @if (empty($subjectsJoin))
+                                        <h1>No Classes Witting</h1>
                                     @else
                                         <table class="table table-bordered">
                                             <tr>
@@ -94,21 +91,85 @@
                                                 <th>Level</th>
                                                 <th style="width: 250px">Actions</th>
                                             </tr>
-                                            @foreach ($studentClasses as $item)
+                                            @foreach ($subjectsJoin as $item)
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->subject_name }}</td>
+                                                    <td>{{ $level->name }}</td>
+                                                    <td>
+                                                        <form class="form-inline" method="POST">
+                                                            @csrf
+                                                            <button disabled class="btn btn-danger btn-sm" type=""
+                                                                class="btn btn-danger">
+                                                                <i class="fas fa-folder"></i>
+                                                                Witting</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                    @endif
+                                    {{--  /////////////////////// Subject Accpteed  /////////////////////// --}}
+                                    @if (empty($subjectsAccpet))
+                                        <h1>No Classes For Student</h1>
+                                    @else
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th style="width: 40px">id</th>
+                                                <th>Name</th>
+                                                <th>Level</th>
+                                            </tr>
+                                            @foreach ($subjectsAccpet as $subjectsAccpetItem)
+                                                <tr>
+                                                    <td>{{ $subjectsAccpetItem->id }}</td>
+                                                    <td>{{ $subjectsAccpetItem->subject_name }}</td>
                                                     <td>{{ $level->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </table>
                                     @endif
 
+
+
+
                                 </div>
 
 
-                                <div class="tab-pane" id="exams">
+                                <div class="tab-pane" id="SubjectUnSubs">
+                                    <div class="active tab-pane" id="subject">
+                                        @if (empty($subjectsUnJoin))
+                                            <h1>No Subjects For Student</h1>
+                                        @else
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th style="width: 40px">id</th>
+                                                    <th>Name</th>
+                                                    <th>Level</th>
+                                                    <th style="width: 250px">Actions</th>
+                                                </tr>
+                                                @foreach ($subjectsUnJoin as $subUnJoin)
+                                                    <tr>
+                                                        <td>{{ $subUnJoin->classID }}</td>
+                                                        <td>{{ $subUnJoin->subject_name }}</td>
+                                                        <td>{{ $level->name }}</td>
+                                                        <td>
+                                                            <form class="form-inline" method="POST"
+                                                                action="{{ URL('/student/joinClass/' . $subUnJoin->classID . '/' . $student->id) }}">
+                                                                @csrf
 
+                                                                <button class="btn btn-danger btn-sm" type="sumbit"
+                                                                    class="btn btn-danger">
+                                                                    <i class="fas fa-folder"></i>
+                                                                    Join</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                            </table>
+                                        @endif
+
+                                    </div>
 
 
                                 </div>
@@ -137,7 +198,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
                                             </div>

@@ -37,6 +37,10 @@ Route::controller(TeacherController::class)->group(function () {
 });
 Route::controller(TeacherProfileController::class)->group(function () {
     Route::get('/teacherprofile/{teacherId}', 'getProfileData');
+    Route::get('/requestSubjcteStudent/{teacherID}/{classID}/{subjectID}', 'getSubjcteForTeacher');
+    Route::post('/acceptStudent/{stdClassID}', 'acceptStudent');
+    Route::post('/rejectStudent/{stdClassID}', 'rejectStudent');
+
 });
 
 Route::controller(ClassController::class)->group(function () {

@@ -21,12 +21,12 @@
                             @endforeach
                         </select>
                     </div>
-
+                    
                     <div class="col-sm-6">
                         <label>Subjects</label>
                         <select class="form-control custom-select" name="subjectID" id="subjectID">
                             @foreach ($subjects as $subjectItem)
-                                <option value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}</option>
+                                <option value="{{$subjectItem->id}}|{{$subjectItem->level_id}}">{{ $subjectItem->subject_name }}</option>
                             @endforeach
                         </select>
                     </div>
