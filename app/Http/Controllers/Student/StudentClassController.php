@@ -43,8 +43,8 @@ class StudentClassController extends Controller
         //     ) AND stdc.student_id = ' . $studentID . '';
         // $std_classe = DB::select($q);
 
-        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name FROM `subjects` AS subject,`classes` AS c WHERE(
-            subject.id = c.subject_id AND c.id IN (
+        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+            subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
             ) AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1
@@ -53,20 +53,21 @@ class StudentClassController extends Controller
 
         $subjectsJoin = DB::select($qForSubjectsJoin);
 
-        $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id  FROM `subjects` AS subject,`classes` AS c WHERE(
-                subject.id = c.subject_id AND c.level_id = ' . $level->id . ' AND c.id NOT IN (
+        $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+                subject.id = c.subject_id AND c.level_id = ' . $level->id . ' AND c.teacher_id = t.id AND c.id NOT IN (
                 SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
                 )
                 )';
 
-        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID,c.class_name FROM `subjects` AS subject,`classes` AS c WHERE(
-                    subject.id = c.subject_id AND c.id IN (
+        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID,c.class_name,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+                    subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
                     SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
                     ) AND c.id IN (
                     SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2
                     )
                     )';
         $subjectsAccpet = DB::select($qForSubjectsAccpet);
+        
         $subjectsUnJoin = DB::select($qForSubjectsUnJoin);
         return view('std_class.index')
             ->with('student', $student)

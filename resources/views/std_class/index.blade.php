@@ -88,14 +88,14 @@
                                             <tr>
                                                 <th style="width: 40px">id</th>
                                                 <th>Name</th>
-                                                <th>Level</th>
+                                                <th>Teacher</th>
                                                 <th style="width: 250px">Actions</th>
                                             </tr>
                                             @foreach ($subjectsJoin as $item)
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->subject_name }}</td>
-                                                    <td>{{ $level->name }}</td>
+                                                    <td>{{ $item->teacher_name }}</td>
                                                     <td>
                                                         <form class="form-inline" method="POST">
                                                             @csrf
@@ -117,13 +117,13 @@
                                             <tr>
                                                 <th style="width: 40px">id</th>
                                                 <th>Name</th>
-                                                <th>Level</th>
+                                                <th>Teacher</th>
                                             </tr>
                                             @foreach ($subjectsAccpet as $subjectsAccpetItem)
                                                 <tr>
                                                     <td>{{ $subjectsAccpetItem->id }}</td>
                                                     <td>{{ $subjectsAccpetItem->subject_name }}</td>
-                                                    <td>{{ $level->name }}</td>
+                                                    <td>{{ $subjectsAccpetItem->teacher_name }}</td>
                                                 </tr>
                                             @endforeach
                                         </table>
@@ -144,14 +144,14 @@
                                                 <tr>
                                                     <th style="width: 40px">id</th>
                                                     <th>Name</th>
-                                                    <th>Level</th>
+                                                    <th>Teacher</th>
                                                     <th style="width: 250px">Actions</th>
                                                 </tr>
                                                 @foreach ($subjectsUnJoin as $subUnJoin)
                                                     <tr>
                                                         <td>{{ $subUnJoin->classID }}</td>
                                                         <td>{{ $subUnJoin->subject_name }}</td>
-                                                        <td>{{ $level->name }}</td>
+                                                        <td>{{ $subUnJoin->teacher_name }}</td>
                                                         <td>
                                                             <form class="form-inline" method="POST"
                                                                 action="{{ URL('/student/joinClass/' . $subUnJoin->classID . '/' . $student->id) }}">
