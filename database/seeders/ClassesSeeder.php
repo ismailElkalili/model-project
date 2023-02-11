@@ -19,13 +19,15 @@ class ClassesSeeder extends Seeder
             'class_name' => '101',
             'state' => '0',
             'teacher_id' => '1',
-            'subject_id' => '1'
+            'subject_id' => '1',
+            'level_id' => '1'
         ]);
         DB::table('classes')->insert([
             'class_name' => '102',
             'state' => '0',
             'teacher_id' => '2',
-            'subject_id' => '2'
+            'subject_id' => '2',
+            'level_id' => '1'
         ]);
         //
     }

@@ -45,9 +45,7 @@ class StudentClassController extends Controller
 
         $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
-            SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
-            ) AND c.id IN (
-            SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1
+            SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1 AND std_classes.student_id = ' . $studentID . '
             )
             )';
 
@@ -59,16 +57,16 @@ class StudentClassController extends Controller
                 )
                 )';
 
-        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID,c.class_name,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID, c.class_name AS class_name ,t.teacher_name as teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
                     subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
-                    SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
-                    ) AND c.id IN (
-                    SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2
+                    SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2 AND std_classes.student_id = ' . $studentID . ' 
                     )
                     )';
+
         $subjectsAccpet = DB::select($qForSubjectsAccpet);
         
         $subjectsUnJoin = DB::select($qForSubjectsUnJoin);
+       
         return view('std_class.index')
             ->with('student', $student)
             ->with('level', $level)
