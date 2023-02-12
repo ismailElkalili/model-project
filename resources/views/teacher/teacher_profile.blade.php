@@ -115,7 +115,37 @@
                                 </div>
                                 <div class="tab-pane" id="exams">
 
-                                    <h1>Here We Make Code For Exams Student</h1>
+                                    <form action="{{ URL('/exam/store') }}" method="POST">
+                                        @csrf
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="exam-name">Eaxm Name</label>
+                                                <input type="text" class="form-control" id="exam_name" name="exam_name"
+                                                    placeholder="Enter Exam Name">
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Classes</label>
+                                                <select class="form-control custom-select" name="class_id" id="class_id">
+                                                    @if (empty($classes))
+                                                        <option value=0>No Classes For You</option>
+                                                    @else
+                                                        @foreach ($classes as $classItem)
+                                                            <option value={{ $classItem->id }}>{{$classItem->class_name}}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">create</button>
+                                            <a href="{{ url('/exam/index') }}" class="btn btn-outline-danger ">cancel</a>
+                                        </div>
+                                    </form>
 
                                 </div>
 

@@ -18,12 +18,12 @@ return new class extends Migration {
             $table->integer('student_mark')->nullable();
             $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('exam_id')->nullable();
-            $table->unsignedBigInteger('question_id')->nullable();
+            $table->unsignedBigInteger('option_id')->nullable();
             $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students')->nullOnDelete();
             $table->foreign('exam_id')->references('id')->on('exams')->nullOnDelete();
-            $table->foreign('question_id')->references('id')->on('questions')->nullOnDelete();
+            $table->foreign('option_id')->references('id')->on('quistion_options')->nullOnDelete();
 
         });
     }

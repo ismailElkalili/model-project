@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('question_text');
-            $table->string('right_answer');
             $table->string('question_type');
             $table->integer('question_mark');
             $table->boolean('isDelete')->default(0);
