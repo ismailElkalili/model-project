@@ -13,6 +13,7 @@ Route::controller(StudentController::class)->group(function () {
     Route::post('/student/update/{studentID}', 'update');
     Route::post('/student/destroy/{studentID}', 'destroy');
     Route::post('/student/archive/{studentID}', 'archive');
+    
 });
 Route::controller(StudentClassController::class)->group(function () {
     Route::get('/stdClass/profile/{studentID}', 'profile');
@@ -24,6 +25,5 @@ Route::controller(StudentClassController::class)->group(function () {
     Route::post('/stdClass/destroy/{studentID}', 'destroy');
     Route::post('/stdClass/archive/{studentID}', 'archive');
     Route::post('/student/joinClass/{classID}/{studentID}', 'joinClass');
-
-   
+    Route::get('/student/class/exam/{classID}/{examID}', 'showExam');
 });

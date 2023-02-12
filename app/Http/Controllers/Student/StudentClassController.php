@@ -109,16 +109,32 @@ class StudentClassController extends Controller
      */
     public function show($classID, $studentID)
     {
+        $examsForStudent = DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . '');
+
         $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
             SELECT e.id FROM `exams` AS e WHERE e.class_id IN(
-            SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = 1
+            SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
             )
             )';
         $qAndOp = DB::select($qForGetQAndOp);
-       
-        return view('exam.index')->with('qAndOp' ,$qAndOp);
-        
+
+        return view('exam.index')->with('examsForStudent', $examsForStudent);
+
         // dd(json_decode($qAndOp[0]->options, true));
+    }
+
+    public function showExam($classID, $examID)
+    {
+        $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
+            SELECT e.id FROM `exams` AS e WHERE e.id = ' . $examID . ' AND e.class_id IN(
+            SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
+            )
+            )';
+            $qAndOp = DB::select($qForGetQAndOp);
+            return view('exam.new_exam')->with('qAndOp', $qAndOp);
+
+           
+
     }
 
     /**
