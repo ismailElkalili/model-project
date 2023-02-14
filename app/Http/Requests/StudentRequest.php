@@ -13,7 +13,7 @@ class StudentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,6 +22,21 @@ class StudentRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
+    {
+        return [
+            'student_First_Name' => 'required|min:3',
+            'student_Father_Name' => 'required|min:3',
+            'student_Grandfather_Name' => 'required|min:3',
+            'student_Last_Name' => 'required|min:3',
+            'gender' => 'required',
+            'email' => 'required|email:rfc,dns,filter',
+            'dob' => 'required|date|date_equals:date',
+            'levelID' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
+            
+        ];
+    }
+    public function messages()
     {
         return [
             'student_First_Name' => 'required|min:3',
