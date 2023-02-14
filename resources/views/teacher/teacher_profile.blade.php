@@ -25,8 +25,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                style="width: 200px; height: 200px;align-content: center;justify-content: center;position: relative"
-                                src="{{ asset('storage/' . $teacher->teacher_image) }}" alt="User profile picture">    
+                                    style="width: 200px; height: 200px;align-content: center;justify-content: center;position: relative"
+                                    src="{{ asset('storage/' . $teacher->teacher_image) }}" alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{ $teacher->teacher_name }}</h3>
                             <p class="text-muted text-center">{{ $teacher->teacher_email }}</p>
@@ -69,7 +69,7 @@
                     </div>
 
                 </div>
-                
+
 
                 <div class="col-md-9">
                     <div class="card">
@@ -86,31 +86,23 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="subject">
-                                    @if (empty($subjects))
-                                        <h1>No Classes For Student</h1>
+                                    @if (empty($classes))
+                                        <td>No Classes For You</td>
                                     @else
                                         <table class="table table-bordered">
-                                            @foreach ($subjects as $item)
+                                            <tr>
+                                                <th style="width: 40px">id</th>
+                                                <th>Class</th>
+                                                <th>Subject</th>
+                                                <th style="width: 250px">Actions</th>
+                                            </tr>
+                                            @foreach ($classes as $classItem)
                                                 <tr>
-                                                    <th style="width: 40px">id</th>
-                                                    <th> subject Name</th>
-                                                    <th> classes Name</th>
-                                                    <th style="width: 250px">Actions</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>{{ $item->id }}</td>
-                                                    <td>{{ $item->subject_name }}</td>
-                                                    @foreach ($classes as $class)
-                                                       
-                                                        @if ($class->subject_id == $item->id)
-
-                                                            <td>{{ $class->class_name }}</td>
-                                                        @else
-                                                            <td> not found</td>
-                                                        @endif
-                                                    @endforeach
+                                                    <td>{{ $classItem->id }}</td>
+                                                    <td>{{ $classItem->class_name }}</td>
+                                                    <td>{{ $classItem->subject_name }}</td>
                                                     <td> <a class="btn btn-primary btn-sm"
-                                                            href="{{ url('/subject/show/' . $item->id) }}">
+                                                            href="{{ URL('/requestSubjcteStudent/' . $classItem->teacher_id . '/' . $classItem->id . '/' . $classItem->sub_id) }}">
                                                             <i class="fas fa-user">
                                                             </i>
                                                             View student class
@@ -121,11 +113,39 @@
                                     @endif
 
                                 </div>
-
-
                                 <div class="tab-pane" id="exams">
 
-                                    <h1>Here We Make Code For Exams Student</h1>
+                                    <form action="{{ URL('/exam/store') }}" method="POST">
+                                        @csrf
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="exam-name">Eaxm Name</label>
+                                                <input type="text" class="form-control" id="exam_name" name="exam_name"
+                                                    placeholder="Enter Exam Name">
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Classes</label>
+                                                <select class="form-control custom-select" name="class_id" id="class_id">
+                                                    @if (empty($classes))
+                                                        <option value=0>No Classes For You</option>
+                                                    @else
+                                                        @foreach ($classes as $classItem)
+                                                            <option value={{ $classItem->id }}>{{$classItem->class_name}}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">create</button>
+                                            <a href="{{ url('/exam/index') }}" class="btn btn-outline-danger ">cancel</a>
+                                        </div>
+                                    </form>
 
                                 </div>
 

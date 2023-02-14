@@ -48,6 +48,8 @@
                         @enderror
                     </div>
 
+                    
+
                     <div class="form-group col-md-6" >
                         <label>Subjects</label>
                         @if ($errors->has('subjectID'))
@@ -55,14 +57,14 @@
                                 style="border-color: red;">
                                 <option value=''> choose subject</option>
                                 @foreach ($subjects as $subjectItem)
-                                    <option value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}</option>
+                                <option value="{{$subjectItem->id}}|{{$subjectItem->level_id}}">{{ $subjectItem->subject_name }}</option>
                                 @endforeach
                             </select>
                         @else
                             <select class="form-control custom-select" name="subjectID" id="subjectID">
                                 <option value=''> choose subject</option>
                                 @foreach ($subjects as $subjectItem)
-                                    <option value={{ $subjectItem->id }}>{{ $subjectItem->subject_name }}</option>
+                                <option value="{{$subjectItem->id}}|{{$subjectItem->level_id}}">{{ $subjectItem->subject_name }}</option>
                                 @endforeach
                             </select>
                         @endif
@@ -71,6 +73,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
+
                     </div>
 
                 </div>

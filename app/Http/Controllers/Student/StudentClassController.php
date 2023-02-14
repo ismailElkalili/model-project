@@ -10,31 +10,70 @@ class StudentClassController extends Controller
 {
     public function profile($studentID)
     {
-        $std_classes = DB::select('SELECT * FROM `std_classes` AS `std_c` WHERE std_c.student_id IN(SELECT   students.id FROM `students` WHERE id = ' . $studentID . ')');
-        $query = 'SELECT s.* FROM `subjects` AS s WHERE (
-            s.id IN (
-                SELECT c.subject_id FROM `classes` AS c WHERE c.subject_id = s.id AND
-                    (
-                         c.id IN (
-                             SELECT std_s.class_id FROM `std_classes` AS std_s WHERE std_s.class_id = c.id AND std_s.student_id = ' . $studentID . '
-                         )
-                     )
-            )
-        )';
-        // $query2 = 'SELECT  * FROM subjects AS `std_v` 
-        // WHERE std_v.id IN(SELECT  id FROM classes WHERE id IN( SELECT   std_c.class_id FROM   `std_classes` AS `std_c` 
+
+        // $query2 = 'SELECT  * FROM subjects AS `std_v`
+        // WHERE std_v.id IN(SELECT  id FROM classes WHERE id IN( SELECT   std_c.class_id FROM   `std_classes` AS `std_c`
         // WHERE std_c.student_id IN( SELECT    students.id FROM   `students`   WHERE    id = ' . $studentID . ' ) ) )';
         $student = DB::table('students')->where('id', '=', $studentID)->first();
         $level = DB::table('levels')->where('id', $student->level_id)->first();
-        $studentClasses = DB::select($query);
-      
+
+        // $query = 'SELECT s.* FROM `subjects` AS s WHERE(
+        //     s.id IN(
+        //     SELECT c.subject_id FROM `classes` AS c
+        //     WHERE
+        //         s.level_id = ' . $level->id . ' AND
+        //         c.subject_id = s.id AND(
+        //             c.id IN(
+        //             SELECT
+        //                 std_s.class_id
+        //             FROM
+        //                 `std_classes` AS std_s
+        //             WHERE
+        //                 std_s.class_id = c.id AND std_s.student_id = ' . $studentID . '
+        //         )
+        //         )
+        // )
+        // )';
+        // $subjects = DB::table('subjects')->where('level_id', $level->id)->get();
+        // $classes = DB::table('classes')->where('level_id', $level->id)->get();
+        // $studentSubject = DB::select($query);
+
+        // $q = 'SELECT stdc.* FROM `std_classes` AS stdc WHERE stdc.class_id IN(
+        //     SELECT c.id FROM `classes` AS c
+        //     ) AND stdc.student_id = ' . $studentID . '';
+        // $std_classe = DB::select($q);
+
+        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+            subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
+            SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1 AND std_classes.student_id = ' . $studentID . '
+            )
+            )';
+
+        $subjectsJoin = DB::select($qForSubjectsJoin);
+
+        $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+                subject.id = c.subject_id AND c.level_id = ' . $level->id . ' AND c.teacher_id = t.id AND c.id NOT IN (
+                SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
+                )
+                )';
+
+        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID, c.class_name AS class_name ,t.teacher_name as teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+                    subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
+                    SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2 AND std_classes.student_id = ' . $studentID . '
+                    )
+                    )';
+
+        $subjectsAccpet = DB::select($qForSubjectsAccpet);
+
+        $subjectsUnJoin = DB::select($qForSubjectsUnJoin);
+
         return view('std_class.index')
             ->with('student', $student)
             ->with('level', $level)
-            ->with('studentClasses', $studentClasses)
-            ->with('std_classes', $std_classes);
+            ->with('subjectsJoin', $subjectsJoin)
+            ->with('subjectsUnJoin', $subjectsUnJoin)
+            ->with('subjectsAccpet', $subjectsAccpet);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -51,9 +90,15 @@ class StudentClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function joinClass(Request $request, $classID, $studentID)
     {
-        //
+        DB::table('std_classes')->insert([
+            'student_id' => $studentID,
+            'class_id' => $classID,
+            'state' => 1,
+        ]);
+
+        return redirect("/stdClass/profile/$studentID");
     }
 
     /**
@@ -62,9 +107,18 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($classID, $studentID)
     {
-
+        $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
+            SELECT e.id FROM `exams` AS e WHERE e.class_id IN(
+            SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = 1
+            )
+            )';
+        $qAndOp = DB::select($qForGetQAndOp);
+       
+        return view('exam.index')->with('qAndOp' ,$qAndOp);
+        
+        // dd(json_decode($qAndOp[0]->options, true));
     }
 
     /**

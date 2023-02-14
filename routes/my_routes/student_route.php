@@ -16,11 +16,14 @@ Route::controller(StudentController::class)->group(function () {
 });
 Route::controller(StudentClassController::class)->group(function () {
     Route::get('/stdClass/profile/{studentID}', 'profile');
-    Route::get('/stdClass/show/{studentID}', 'show');
+    Route::get('/stdClass/show/{classID}/{studentID}', 'show');
     Route::get('/stdClass/create', 'create');
     Route::post('/stdClass/store', 'store');
     Route::get('/stdClass/edit/{studentID}', 'edit');
     Route::post('/stdClass/update/{studentID}', 'update');
     Route::post('/stdClass/destroy/{studentID}', 'destroy');
     Route::post('/stdClass/archive/{studentID}', 'archive');
+    Route::post('/student/joinClass/{classID}/{studentID}', 'joinClass');
+
+   
 });
