@@ -14,12 +14,19 @@
                     <th style="width: 250px">Actions</th>
                 </tr>
                 @foreach ($examsForStudent as $examIitem)
+                    {{--  @php
+                        $date = Carbon\Carbon::parse($examIitem->exam_duration)->format('Y-m-d');
+                        $time = Carbon\Carbon::parse($examIitem->exam_duration)->format('H:i:s');
+                        
+                        $date_today = $date . ' ' . $time;
+                    @endphp  --}}
+
                     <tr>
                         <td>{{ $examIitem->id }}</td>
                         <td>{{ $examIitem->exam_name }}</td>
                         <td>
                             <a class="btn btn-info btn-sm"
-                                href="{{ url('/student/class/exam/' . $examIitem->class_id . '/' . $examIitem->id) }}">
+                                href="{{ url('/student/class/examIndex/' . $examIitem->class_id . '/' . $examIitem->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 View
@@ -31,13 +38,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
     {{--  @foreach ($qAndOp as $qAndOpItem)
         <form action="/action_page.php">
             <p>{{$qAndOpItem->question_text}}</p>
@@ -47,4 +47,29 @@
             @endforeach
         </form>
         @endforeach  --}}
+
+    {{--  <script type="text/javascript">
+        
+        var count_id = "@php echo $date_today; @endphp";
+        var countDownDate = new Date(count_id).getTime();
+
+        var x = setInterval(function() {
+            var now = new Date()
+                .getTime();
+            var distance = countDownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+
+    @php
+        echo '<p id="demo" ></p>';
+    @endphp  --}}
 @endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -123,6 +125,36 @@ class StudentClassController extends Controller
         // dd(json_decode($qAndOp[0]->options, true));
     }
 
+    public function showExamIndex($classID, $examID)
+    {
+       
+        
+        $examForStudent = DB::table('exams')->where('class_id', $classID)->where('id', $examID)->first();
+        // DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . ' AND e.id = ' . $examID . '');
+        $today = new DateTime();
+        // Carbon::createFromFormat('m/d/Y H:i:s', $today)
+        $day = new DateTime($examForStudent->exam_duration);
+        // if ($day > $today) {
+        //     $isExpired = true;
+        // } else if($day < $today) {
+        //     $isExpired = false;
+        // }
+
+
+        $now = Carbon::now()->addMinutes(120);
+        $startDate = Carbon::parse($examForStudent->exam_duration);
+        $endDate = Carbon::parse($examForStudent->exam_duration)->addMinutes(4);
+        // dd([$now, $startDate , $endDate]);
+        if($now->between($startDate, $endDate)){
+            $isExpired = false;
+        }else{
+            $isExpired = true;
+            
+        }
+        
+        return view('exam.view_exam')->with('examForStudent', $examForStudent)->with('isExpired', $isExpired);
+    }
+
     public function showExam($classID, $examID)
     {
         $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
@@ -130,10 +162,8 @@ class StudentClassController extends Controller
             SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
             )
             )';
-            $qAndOp = DB::select($qForGetQAndOp);
-            return view('exam.new_exam')->with('qAndOp', $qAndOp);
-
-           
+        $qAndOp = DB::select($qForGetQAndOp);
+        return view('exam.new_exam')->with('qAndOp', $qAndOp);
 
     }
 
