@@ -127,8 +127,7 @@ class StudentClassController extends Controller
 
     public function showExamIndex($classID, $examID)
     {
-       
-        
+
         $examForStudent = DB::table('exams')->where('class_id', $classID)->where('id', $examID)->first();
         // DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . ' AND e.id = ' . $examID . '');
         $today = new DateTime();
@@ -140,30 +139,41 @@ class StudentClassController extends Controller
         //     $isExpired = false;
         // }
 
-
         $now = Carbon::now()->addMinutes(120);
         $startDate = Carbon::parse($examForStudent->exam_duration);
         $endDate = Carbon::parse($examForStudent->exam_duration)->addMinutes(4);
         // dd([$now, $startDate , $endDate]);
-        if($now->between($startDate, $endDate)){
+        if ($now->between($startDate, $endDate)) {
             $isExpired = false;
-        }else{
+        } else {
             $isExpired = true;
-            
+
         }
-        
-        return view('exam.view_exam')->with('examForStudent', $examForStudent)->with('isExpired', $isExpired);
+
+        return view('exam.view_exam')->with('examForStudent', $examForStudent)->with('isExpired', $isExpired)->with('classID', $classID);
     }
 
     public function showExam($classID, $examID)
     {
         $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
-            SELECT e.id FROM `exams` AS e WHERE e.id = ' . $examID . ' AND e.class_id IN(
+            SELECT e.id FROM `exams` AS e WHERE e.id = ' . $examID . ' AND e.exam_state = 0 AND e.class_id IN(
             SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
             )
             )';
+        $examTime = DB::table('exams')->select('exam_duration')->where('id', $examID)->first();
+
+        $now = Carbon::now()->addMinutes(120);
+        $startDate = Carbon::parse($examTime->exam_duration);
+        $endDate = Carbon::parse($examTime->exam_duration)->addMinutes(720);
+        if ($now->between($startDate, $endDate)) {
+            $isExpired = false;
+        } else {
+            $isExpired = true;
+
+        }
         $qAndOp = DB::select($qForGetQAndOp);
-        return view('exam.new_exam')->with('qAndOp', $qAndOp);
+        
+        return view('exam.new_exam')->with('qAndOp', $qAndOp)->with('examTime', $examTime)->with('classID', $classID)->with('isExpired', $isExpired);
 
     }
 

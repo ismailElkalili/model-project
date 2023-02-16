@@ -6,12 +6,13 @@
         
         $date_today = $date . ' ' . $time;
     @endphp
-
+   
     <h1>{{ $examForStudent->exam_name }}</h1>
     <h1>{{ $examForStudent->exam_duration }}</h1>
     @if (!$isExpired)
-        <h1>Expired</h1>
-        <button id="attemp" type="button">Attempt</button>
+        <form action="{{ URL('/student/class/exam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
+            <button type="submit" class="btn btn-primary"  id="attemp">Attempt</button>
+        </form>
     @else
         <script type="text/javascript">
             var count_id = "@php echo $date_today; @endphp";
