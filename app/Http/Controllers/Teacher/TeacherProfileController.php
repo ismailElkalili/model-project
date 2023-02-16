@@ -19,6 +19,12 @@ class TeacherProfileController extends Controller
             WHERE s.id IN (
                  SELECT c.id FROM classes as c WHERE c.teacher_id =' . $teacher->id . '
                  )');
+        $exams = DB::select('SELECT ex.*,sub.subject_name ,cs.class_name 
+        FROM exams AS ex,subjects AS sub ,classes AS cs 
+        WHERE ex.class_id = cs.id 
+        AND cs.teacher_id = 1 
+        AND  sub.id = cs.subject_id
+        ');
 
         return view('teacher.teacher_profile')
             ->with([
@@ -26,6 +32,7 @@ class TeacherProfileController extends Controller
                 'level' => $level,
                 'classes' => $classes,
                 'subjects' => $subjects,
+                'exams' => $exams,
             ]);
     }
 
@@ -41,7 +48,7 @@ class TeacherProfileController extends Controller
             std_classes.state = 1
         )';
         $studentsClassReq = DB::select($query);
-        return view('teacher.students_class')->with('studentsClassReq',$studentsClassReq);
+        return view('teacher.students_class')->with('studentsClassReq', $studentsClassReq);
         // dd(DB::select('SELECT std_classes.* FROM
         //     `classes`, `std_classes` WHERE
         //     (classes.teacher_id = ' . $teacherId . ' AND
@@ -50,12 +57,14 @@ class TeacherProfileController extends Controller
 
     }
 
-    public function rejectStudent($stdClassID){
-        DB::table('std_classes')->where('id',$stdClassID)->delete();
+    public function rejectStudent($stdClassID)
+    {
+        DB::table('std_classes')->where('id', $stdClassID)->delete();
         return back();
     }
 
-    public function acceptStudent($stdClassID){
+    public function acceptStudent($stdClassID)
+    {
 
         DB::table('std_classes')->where('id', $stdClassID)->update([
             'state' => 2

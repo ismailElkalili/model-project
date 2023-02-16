@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Exam;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExamRequest;
+use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +29,8 @@ class ExamController extends Controller
      */
     public function create()
     {
-        //
+        $classes = DB::table('classes')->get();
+        return view('exam.create')->with('classes', $classes);
     }
 
     /**
@@ -36,15 +39,17 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
-      
+        $exam_code = Str::random(Str::length($request['exam_name']));
         DB::table('exams')->insert([
             'exam_name' => $request['exam_name'],
-            'exam_type' => 0,
-            'exam_duration' => '2023-02-08 15:50:08',
+            'exam_type' => $request['exam_type'],
+            'exam_code' => $exam_code,
+            'exam_duration' => $request['exam_duration'],
+            'exam_startAt' => $request['exam_startAtDate'],
             'exam_state' => 0,
-            'class_id' => $request['class_id'],
+            'class_id' => $request['exam_class_id'],
         ]);
         return back();
     }
@@ -94,14 +99,18 @@ class ExamController extends Controller
         //
     }
 
-    public function importView(Request $request){
+    public function importView(Request $request)
+    {
         return view('question.craete');
     }
- 
-    public function import(Request $request){
-        Excel::import(new QuestionsImport,
-                      $request->file('file')->store('files'));
-                      
+
+    public function import(Request $request)
+    {
+        Excel::import(
+            new QuestionsImport,
+            $request->file('file')->store('files')
+        );
+
         return redirect()->back();
     }
 }
