@@ -114,8 +114,9 @@
 
                                 </div>
                                 <div class="tab-pane" id="exams">
-                                    <a class="btn btn-info btn-sm float-right" href="{{ url('/exam/create') }}"> create
-                                        new teacher</a>
+                                    <a style="margin-bottom: 8px;" class="btn btn-info btn-sm float-right"
+                                        href="{{ url('/exam/create') }}"> create
+                                        new exam</a>
                                     @if (empty($exams))
                                         <td>there is no exams added until now </td>
                                     @else
@@ -125,7 +126,8 @@
                                                 <th>exam name</th>
                                                 <th>Subject</th>
                                                 <th>class name</th>
-                                                <th style="width: 250px">Actions</th>
+                                                <th>exam code</th>
+                                                <th >Actions</th>
                                             </tr>
                                             @foreach ($exams as $exam)
                                                 <tr>
@@ -133,6 +135,13 @@
                                                     <td>{{ $exam->exam_name }}</td>
                                                     <td>{{ $exam->subject_name }}</td>
                                                     <td>{{ $exam->class_name }}</td>
+                                                    <td>{{ $exam->exam_code }}</td>
+                                                    <td> <a  class="btn btn-info btn-sm"
+                                                            href="{{ url('/file-import/' . $exam->exam_code) }}">uplaod
+                                                            question file</a>
+                                                        <a class=" fas fa-user btn btn-primary btn-sm"
+                                                            href="{{ url('/exam/show/' . $exam->id) }}">view details</a>
+                                                    <td>
                                                 </tr>
                                             @endforeach
                                         </table>

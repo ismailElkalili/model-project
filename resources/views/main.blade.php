@@ -511,6 +511,7 @@
         <script src="{{ asset('dist/js/adminlte.js') }}"></script>
         <!-- Workhouse for demo purposes -->
         <script src="{{ asset('dist/js/demo.js') }}"></script>
+        <script src="{{asset('scripts/file_name_script.js')}}"></script>
         <!-- Workhouse dashboard demo (This is only for demo purposes) -->
         {{-- <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script> --}}
         @yield('js')

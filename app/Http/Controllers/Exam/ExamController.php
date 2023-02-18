@@ -60,9 +60,10 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($exam_id)
     {
-        //
+        $exam = DB::table('exams')->where('id', $exam_id)->first();
+        return view('exam.show_exam_details')->with('exam', $exam);
     }
 
     /**
@@ -99,9 +100,9 @@ class ExamController extends Controller
         //
     }
 
-    public function importView(Request $request)
+    public function importView(Request $request, $exam_code)
     {
-        return view('question.craete');
+        return view('question.craete')->with('exam_code', $exam_code);
     }
 
     public function import(Request $request)

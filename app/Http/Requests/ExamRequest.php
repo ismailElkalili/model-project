@@ -25,10 +25,10 @@ class ExamRequest extends FormRequest
     {
         return [
             'exam_name' => 'required|string',
-            'exam_duration' => 'required',
-            'exam_type' => 'required',
+            'exam_duration' => 'required|min:0',
+            'exam_type' => 'required|string',
             'exam_class_id' => 'required',
-            'exam_startAtDate' => 'required|date'
+            'exam_startAtDate' => 'required|date',
         ];
     }
     public function messages()
@@ -41,6 +41,8 @@ class ExamRequest extends FormRequest
             'exam_startAtDate.required' => 'please enter the date of the exam',
             'exam_startAtDate.date' => 'the date you enter is invalid',
             'exam_class_id.required' => 'please choose the class',
+            'exam_duration.min' => 'please choose the exam duration',
+            'exam_type.string' => 'please choose the exam duration',
         ];
     }
 }
