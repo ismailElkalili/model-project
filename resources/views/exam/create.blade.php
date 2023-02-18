@@ -59,10 +59,15 @@
             </div>
             <div class="form-group">
                 <label for="exam-name"> Exam duration</label>
+                @error('exam_duration')
+                    <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
+                        {{ $message }}
+                    </div>
+                @enderror
                 @if ($errors->has('exam_duration'))
                     <select style="border-color: red" class="form-control custom-select" name="exam_duration"
                         id="duration">
-                        <option>choose duration</option>
+                        <option value=0>choose duration</option>
                         <option value=15> rquarter hour (15 min)</option>
                         <option value=30> half an hour (30 min) </option>
                         <option value=60> hour (60 min) </option>
@@ -71,7 +76,7 @@
                     </select>
                 @else
                     <select class="form-control custom-select" name="exam_duration" id="duration">
-                        <option>choose duration</option>
+                        <option value=0>choose duration</option>
                         <option value=15> rquarter hour (15 min)</option>
                         <option value=30> half an hour (30 min) </option>
                         <option value=60> hour (60 min) </option>
@@ -79,11 +84,7 @@
                         <option value=1200> 2hours (120 min)</option>
                     </select>
                 @endif
-                @error('exam_duration')
-                    <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
-                        {{ $message }}
-                    </div>
-                @enderror
+
             </div>
             <div class="form-group">
                 <label>Classes</label>
