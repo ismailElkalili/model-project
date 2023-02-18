@@ -125,11 +125,7 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($classID)
-    {
-        DB::table('classes')->where('id', $classID)->delete();
-        return redirect()->back()->with('mes', "Deleted Succesed");
-    }
+  
 
 
 }

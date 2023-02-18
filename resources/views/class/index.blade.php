@@ -49,7 +49,7 @@
                         @endif
 
                         <td>
-                            <form class="form-inline" method="POST" action="{{ URL('/classes/archive/' . $item->id) }}">
+                            <form class="form-inline" method="POST" action="{{ URL('/class_archive/archive/' . $item->id) }}">
                                 @csrf
                                 <a class="btn btn-info btn-sm" href="{{ url('/classes/edit/' . $item->id) }}">
                                     <i class="fas fa-pencil-alt">

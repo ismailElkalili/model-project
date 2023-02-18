@@ -49,16 +49,17 @@
                         @endif
 
                         <td>
-                            <form class="form-inline" method="POST" action="{{ URL('/classes/restore/' . $item->id) }}">
+                            <form class="form-inline" method="POST"
+                                action="{{ URL('/class_archive/destroy/' . $item->id) }}">
                                 @csrf
-                                <a class="btn btn-info btn-sm" href="{{ url('/classes/edit/' . $item->id) }}">
-                                    <i class="fas fa-pencil-alt">
+                                <a class="btn btn-info btn-sm" href="{{ url('/class_archive/restore/' . $item->id) }}">
+                                    <i>
                                     </i>
-                                    Edit
+                                    Restore
                                 </a>
                                 <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
-                                    Restore</button>
+                                    Delete</button>
                             </form>
                         </td>
                     </tr>

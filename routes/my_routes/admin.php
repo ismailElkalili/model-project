@@ -44,11 +44,12 @@ Route::controller(TeacherProfileController::class)->group(function () {
 });
 
 Route::controller(ClassController::class)->group(function () {
-    Route::get('/classes/index', 'index');
+    Route::get('/classes/index', 'index')->name('indexClasses');
     Route::get('/classes/show/{classesID}', 'show');
     Route::get('/classes/create', 'create');
     Route::post('/classes/store', 'store');
     Route::get('/classes/edit/{classesID}', 'edit');
+    Route::post('/classes/update/{classesID}', 'update');
     Route::post('/classes/update/{classesID}', 'update');
   
 });

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class ClassArchiveController extends Controller
 {
+   
+
     public function indexClassArchive()
     {
         $classes = DB::table('classes')->where('isDelete', 1)->get();
@@ -22,12 +24,18 @@ class ClassArchiveController extends Controller
     public function archive($classID)
     {
         DB::table('classes')->where('id', $classID)->update(['isDelete' => 1]);
-        return redirect('/classes/index');
+        return redirect()->route('indexClasses');
     }
 
     public function restore($classID)
     {
         DB::table('classes')->where('id', $classID)->update(['isDelete' => 0]);
-        return redirect('/classes/index');
+        return redirect()->route('indexClasses');
+    }
+
+    public function destroy($classID)
+    {
+        DB::table('classes')->where('id', $classID)->delete();
+        return redirect()->back()->with('mes', "Deleted Succesed");
     }
 }
