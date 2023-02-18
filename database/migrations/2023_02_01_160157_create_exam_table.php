@@ -16,7 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->string('exam_name');
             $table->string('exam_type');
-            $table->dateTime('exam_duration');
+            $table->string('exam_code');
+            $table->integer('exam_duration');
+            $table->dateTime('exam_startAt');
             $table->boolean('exam_state');
             $table->unsignedBigInteger('class_id')->nullable();
             $table->boolean('isDelete')->default(0);
