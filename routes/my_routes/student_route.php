@@ -27,5 +27,5 @@ Route::controller(StudentClassController::class)->group(function () {
     Route::post('/student/joinClass/{classID}/{studentID}', 'joinClass');
     Route::get('/student/class/examIndex/{classID}/{examID}', 'showExamIndex');
     Route::get('/student/class/exam/{classID}/{examID}', 'showExam');
-   
+    Route::post('/student/class/answersStoer', 'stoerAnswersExam');
 });

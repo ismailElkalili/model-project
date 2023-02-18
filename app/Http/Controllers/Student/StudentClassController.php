@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -129,19 +128,9 @@ class StudentClassController extends Controller
     {
 
         $examForStudent = DB::table('exams')->where('class_id', $classID)->where('id', $examID)->first();
-        // DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . ' AND e.id = ' . $examID . '');
-        $today = new DateTime();
-        // Carbon::createFromFormat('m/d/Y H:i:s', $today)
-        $day = new DateTime($examForStudent->exam_duration);
-        // if ($day > $today) {
-        //     $isExpired = true;
-        // } else if($day < $today) {
-        //     $isExpired = false;
-        // }
-
         $now = Carbon::now()->addMinutes(120);
         $startDate = Carbon::parse($examForStudent->exam_duration);
-        $endDate = Carbon::parse($examForStudent->exam_duration)->addMinutes(4);
+        $endDate = Carbon::parse($examForStudent->exam_duration)->addMinutes(720);
         // dd([$now, $startDate , $endDate]);
         if ($now->between($startDate, $endDate)) {
             $isExpired = false;
@@ -172,9 +161,24 @@ class StudentClassController extends Controller
 
         }
         $qAndOp = DB::select($qForGetQAndOp);
-        
+
         return view('exam.new_exam')->with('qAndOp', $qAndOp)->with('examTime', $examTime)->with('classID', $classID)->with('isExpired', $isExpired);
 
+    }
+
+    public function stoerAnswersExam(Request $request)
+    {
+        $answers = $request['datas'];
+        $examID = $request['exam'];
+        foreach ($answers as $item) {
+            DB::table('std_answers')->insert([
+                'student_answer' => $item,
+                'option_id' => array_search($item, $answers),
+                'exam_id' => $examID,
+                'student_id' => 1,
+            ]);
+        }
+        return redirect("/student/index");
     }
 
     /**
