@@ -60,7 +60,7 @@ class TeacherController extends Controller
         ]);
 
 
-        return redirect('/teacher/index');
+        return redirect()->route('indexTeacher');
     }
 
     /**
@@ -129,7 +129,7 @@ class TeacherController extends Controller
         ]);
 
 
-        return redirect('/teacher/index');
+        return redirect()->route('indexTeacher');
     }
 
     /**

@@ -1,31 +1,28 @@
 @extends('main')
 @section('exam')
-
+    @php
+        $timeE = Carbon\Carbon::parse($examTime->exam_startAt)->addMinutes($examTime->exam_duration);
+        $date = $timeE->format('Y-m-d');
+        $time = $timeE->format('H:i:s');
+        
+        $date_today = $date . ' ' . $time;
+    @endphp
     @if (!$isExpired)
-        @php
-            $timeE = Carbon\Carbon::parse($examTime->exam_duration)->addMinutes(720);
-            $date = $timeE->format('Y-m-d');
-            $time = $timeE->format('H:i:s');
-            
-            $date_today = $date . ' ' . $time;
-        @endphp
         @if (empty($qAndOp))
             <h1>No exam</h1>
         @else
-            <form id="sub-anwser" action="{{ URL('/student/class/answersStoer') }}" method="POST">
+            <form id="sub-anwser" action="{{ URL('/exam/class/answersStoer') }}" method="POST">
                 @csrf
                 @foreach ($qAndOp as $qAndOpItem)
                     <p>{{ $qAndOpItem->question_text }}</p>
                     @foreach (json_decode($qAndOpItem->options, true) as $op)
-                        {{--  <input onclick="display(this)" type="radio" id="{{ $qAndOpItem->id }}{{ $op }}"
-                            name="{{ $op }}" />  --}}
                         <input onclick="display(this)" type="radio" id="{{ $qAndOpItem->id }}#{{ $op }}"
                             name="{{ $qAndOpItem->id }}" value="HTML">
                         <label for="html">{{ $op }}</label><br>
                     @endforeach
                     <br>
                 @endforeach
-                
+
                 <input hidden id="examID" name="examID" value="{{ $qAndOp[0]->exam_id }}">
                 <button type="submit" id="test1" class="btn btn-primary">Submit</button>
             </form>
@@ -37,10 +34,7 @@
     @else
         <h1>NO Exam</h1>
     @endif
-
-
 @endsection
-
 
 @section('js')
     <script type="text/javascript">
@@ -69,16 +63,33 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("demo").style.display = 'none';
-                document.getElementById("sub-anwser").submit();
 
-
+                $(document).ready(function() {
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/exam/class/answersStoer',
+                        type: 'POST',
+                        data: {
+                            'datas': answers,
+                            '_token': '<?= csrf_token() ?>',
+                            'exam': exam
+                        },
+                        success: function(data) {
+                            top.location.href = "http://127.0.0.1:8000/student/index";
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    });
+                    return false;
+                })
+                
             }
         }, 1000);
 
         $(document).ready(function() {
             $("#sub-anwser").submit(function(e) {
                 $.ajax({
-                    url: '/student/class/answersStoer',
+                    url: 'http://127.0.0.1:8000/exam/class/answersStoer',
                     type: 'POST',
                     data: {
                         'datas': answers,
@@ -95,24 +106,5 @@
                 return false;
             });
         })
-
-
-        /*  function test(){
-              alert('ff');
-              $.ajax({
-                  url:$("#action").val(), 
-                  type: 'POST',
-                  data: {'data': answers, '_token' : '<?= csrf_token() ?>'},
-                  success : function(data){
-                      console.log(data);
-                  },
-                  error : function(e){
-                     console.log(e);
-                  }
-
-              });
-              return false;
-
-          }*/
     </script>
 @endsection

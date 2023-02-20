@@ -38,14 +38,14 @@
                 <label for="exam-name"> Exam type</label>
                 @if ($errors->has('exam_type'))
                     <select style="border-color: red" class="form-control custom-select" name="exam_type" id="duration">
-                        <option value=0>choose type</option>
+                        <option value=''>choose type</option>
                         <option value='quiz'> quiz</option>
                         <option value='mid'> mid </option>
                         <option value='final'> final</option>
                     </select>
                 @else
                     <select class="form-control custom-select" name="exam_type" id="duration">
-                        <option value=0>choose type</option>
+                        <option value=''>choose type</option>
                         <option value='quiz'> quiz</option>
                         <option value='mid'> mid </option>
                         <option value='final'> final</option>
@@ -59,15 +59,11 @@
             </div>
             <div class="form-group">
                 <label for="exam-name"> Exam duration</label>
-                @error('exam_duration')
-                    <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
-                        {{ $message }}
-                    </div>
-                @enderror
+
                 @if ($errors->has('exam_duration'))
                     <select style="border-color: red" class="form-control custom-select" name="exam_duration"
                         id="duration">
-                        <option value=0>choose duration</option>
+                        <option value=-1>choose duration</option>
                         <option value=15> rquarter hour (15 min)</option>
                         <option value=30> half an hour (30 min) </option>
                         <option value=60> hour (60 min) </option>
@@ -76,7 +72,7 @@
                     </select>
                 @else
                     <select class="form-control custom-select" name="exam_duration" id="duration">
-                        <option value=0>choose duration</option>
+                        <option value=-1>choose duration</option>
                         <option value=15> rquarter hour (15 min)</option>
                         <option value=30> half an hour (30 min) </option>
                         <option value=60> hour (60 min) </option>
@@ -84,7 +80,11 @@
                         <option value=1200> 2hours (120 min)</option>
                     </select>
                 @endif
-
+                @error('exam_duration')
+                    <div class="text-danger" style="font-size: 12px; margin: 0px 10px 0px 10px;">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label>Classes</label>
@@ -109,7 +109,7 @@
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">create</button>
-            <a href="{{ url('/exam/index') }}" class="btn btn-outline-danger ">cancel</a>
+            <a href="{{ url()->previous() }}" class="btn btn-outline-danger ">cancel</a>
         </div>
     </form>
 @endsection

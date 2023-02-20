@@ -3,42 +3,23 @@
 namespace App\Http\Controllers\Exam;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\methoeds\IsExpiredTime;
 use App\Http\Requests\ExamRequest;
-use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $classes = DB::table('classes')->get();
         return view('exam.create')->with('classes', $classes);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ExamRequest $request)
     {
         $exam_code = Str::random(Str::length($request['exam_name']));
@@ -54,55 +35,52 @@ class ExamController extends Controller
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($exam_id)
     {
         $exam = DB::table('exams')->where('id', $exam_id)->first();
-        return view('exam.show_exam_details')->with('exam', $exam);
+        return view('exam.show_exam_details', ['exam' => $exam]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function showExamsForStudnet($classID, $studentID)
     {
-        //
+        $examsForStudent = DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . '');
+        return view('exam.index_exams_for_student', ['examsForStudent' => $examsForStudent]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function showExamDetails($classID, $examID)
     {
-        //
+        $examForStudent = DB::table('exams')->where('class_id', $classID)->where('id', $examID)->first();
+
+        $isExpired = IsExpiredTime::isExpiredTime($examForStudent->exam_startAt, $examForStudent->exam_duration);
+
+        $isSubmited = DB::table('std_answers')->where('exam_id', $examID)->where('student_id', 1)->exists();
+        return view('exam.view_exam', [
+            'examForStudent' => $examForStudent,
+            'isExpired' => $isExpired,
+            'classID' => $classID,
+            'isSubmited' => $isSubmited]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function showExamQuestions($classID, $examID)
     {
-        //
+        $examTime = DB::table('exams')->select('exam_startAt', 'exam_duration')->where('id', $examID)->first();
+        $isExpired = IsExpiredTime::isExpiredTime($examTime->exam_startAt, $examTime->exam_duration);
+        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID);
+        return view('exam.new_exam', ['qAndOp' => $qAndOp, 'examTime' => $examTime, 'classID' => $classID, 'isExpired' => $isExpired]);
+    }
+
+    
+
+    public function showAnswersForStudent($classID, $examID)
+    {
+        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID);
+        return view('exam.old_exam', ['qAndOp' => $qAndOp]);
     }
 
     public function importView(Request $request, $exam_code)
     {
-        return view('question.craete')->with('exam_code', $exam_code);
+        return view('question.craete', ['exam_code' => $exam_code]);
     }
 
     public function import(Request $request)
@@ -113,5 +91,16 @@ class ExamController extends Controller
         );
 
         return redirect()->back();
+    }
+
+
+    public function getQuestionsAndOpExam($classID, $examID)
+    {
+        $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
+            SELECT e.id FROM `exams` AS e WHERE e.id = ' . $examID . ' AND e.exam_state = 0 AND e.class_id IN(
+            SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
+            )
+            )';
+        return DB::select($qForGetQAndOp);
     }
 }

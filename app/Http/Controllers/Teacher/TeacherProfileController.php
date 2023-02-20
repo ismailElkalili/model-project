@@ -49,11 +49,6 @@ class TeacherProfileController extends Controller
         )';
         $studentsClassReq = DB::select($query);
         return view('teacher.students_class')->with('studentsClassReq', $studentsClassReq);
-        // dd(DB::select('SELECT std_classes.* FROM
-        //     `classes`, `std_classes` WHERE
-        //     (classes.teacher_id = ' . $teacherId . ' AND
-        //     std_classes.class_id = ' . $classID . ' AND
-        //         classes.subject_id = ' . $subjectID . ')'));
 
     }
 

@@ -25,7 +25,7 @@ class ExamRequest extends FormRequest
     {
         return [
             'exam_name' => 'required|string',
-            'exam_duration' => 'required|min:0',
+            'exam_duration' => 'required|numeric|min:1',
             'exam_type' => 'required|string',
             'exam_class_id' => 'required',
             'exam_startAtDate' => 'required|date',

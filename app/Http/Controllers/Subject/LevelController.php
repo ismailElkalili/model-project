@@ -41,7 +41,7 @@ class LevelController extends Controller
         DB::table('levels')->insert([
             'name' => $request['level_Name'],
         ]);
-        return redirect('/level/index');
+        return redirect()->route('indexLevel');
     }
 
     /**
@@ -80,7 +80,7 @@ class LevelController extends Controller
         DB::table('levels')->where('id', $levelId)->update([
             'name' => $request['level_Name'],
         ]);
-        return redirect('/level/index');
+        return redirect()->route('indexLevel');
     }
 
     /**
@@ -92,7 +92,7 @@ class LevelController extends Controller
     public function destroy($levelId)
     {
         DB::table('levels')->where('id', $levelId)->delete();
-        return redirect('/level/index');
+        return redirect()->route('indexLevel');
     }
 
 

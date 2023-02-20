@@ -19,10 +19,7 @@
                     <td>{{ $studentsClassReqItem->id }}</td>
                     <td>{{ $studentsClassReqItem->student_name }}</td>
                     <td>{{ $studentsClassReqItem->class_name }}</td>
-                    <td>
-                      
-                        
-                            
+                    <td>         
                         <form style="display: inline"  method="POST" action="{{ url('/acceptStudent/' . $studentsClassReqItem->id) }}">
                             @csrf
                             <button type="sumbit" class="btn btn-success btn-sm" ><i class="fas fa-trash">

@@ -60,7 +60,7 @@ class ClassController extends Controller
             'level_id' => $subIDAndLevelID[1],
         ]);
 
-        return redirect('/classes/index')
+        return redirect()->route('indexClasses')
             ->with('classes', $classes)
             ->with('teachers', $teachers)
             ->with('subjects', $subjects);
@@ -113,7 +113,7 @@ class ClassController extends Controller
             'subject_id' => $request['subjectID'],
         ]);
 
-        return redirect('/classes/index')
+        return redirect()->route('indexClasses')
             ->with('classes', $classes)
             ->with('teachers', $teachers)
             ->with('subjects', $subjects);

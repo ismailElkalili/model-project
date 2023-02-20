@@ -45,10 +45,10 @@ class SubscribtionController extends Controller
             'subscribtion_plan' => $request['subscribtionPlan']
         ])){
             
-            return redirect('/subscribtion/index')->with('mes',"Add Succesed");
+            return redirect()->route('indexSubscribtion')->with('mes',"Add Succesed");
         }else{
 
-            return redirect('/subscribtion/create')->with('mes',"Add Succesed");
+            return redirect()->route('indexSubscribtion')->with('mes',"Add Succesed");
         }
        
         
@@ -90,7 +90,7 @@ class SubscribtionController extends Controller
         DB::table('subscribtions')->where('id', '=', $subscribtionID)->update([
             'subscribtion_plan' => $request['subscribtionPlan']
         ]);  
-        return redirect('/subscribtion/index');
+        return redirect()->route('indexSubscribtion');
     }
 
     /**

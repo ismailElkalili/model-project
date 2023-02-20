@@ -126,7 +126,7 @@
                                                     <td>{{ $subjectsAccpetItem->subject_name }}</td>
                                                     <td>{{ $subjectsAccpetItem->teacher_name }}</td>
                                                     <td> <a class="btn btn-primary btn-sm"
-                                                            href="{{ URL('/stdClass/show/' . $subjectsAccpetItem->id . '/' . $student->id) }}">
+                                                            href="{{ URL('/exam/show/' . $subjectsAccpetItem->id . '/' . $student->id) }}">
                                                             <i class="fas fa-user">
                                                             </i>
                                                             View class

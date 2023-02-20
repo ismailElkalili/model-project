@@ -127,7 +127,7 @@
                                                 <th>Subject</th>
                                                 <th>class name</th>
                                                 <th>exam code</th>
-                                                <th >Actions</th>
+                                                <th>Actions</th>
                                             </tr>
                                             @foreach ($exams as $exam)
                                                 <tr>
@@ -136,12 +136,12 @@
                                                     <td>{{ $exam->subject_name }}</td>
                                                     <td>{{ $exam->class_name }}</td>
                                                     <td>{{ $exam->exam_code }}</td>
-                                                    <td> <a  class="btn btn-info btn-sm"
+                                                    <td> <a class="btn btn-info btn-sm"
                                                             href="{{ url('/file-import/' . $exam->exam_code) }}">uplaod
                                                             question file</a>
                                                         <a class=" fas fa-user btn btn-primary btn-sm"
                                                             href="{{ url('/exam/show/' . $exam->id) }}">view details</a>
-                                                    <td>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </table>

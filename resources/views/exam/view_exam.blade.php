@@ -1,19 +1,23 @@
 @extends('main')
 @section('exam')
     @php
-        $date = Carbon\Carbon::parse($examForStudent->exam_duration)->format('Y-m-d');
-        $time = Carbon\Carbon::parse($examForStudent->exam_duration)->format('H:i:s');
+        $date = Carbon\Carbon::parse($examForStudent->exam_startAt)->format('Y-m-d');
+        $time = Carbon\Carbon::parse($examForStudent->exam_startAt)->format('H:i:s');
         
         $date_today = $date . ' ' . $time;
     @endphp
-   
     <h1>{{ $examForStudent->exam_name }}</h1>
-    <h1>{{ $examForStudent->exam_duration }}</h1>
-    @if (!$isExpired)
-        <form action="{{ URL('/student/class/exam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
-            <button type="submit" class="btn btn-primary"  id="attemp">Attempt</button>
+    <h1>{{ $examForStudent->exam_startAt }}</h1>
+
+    @if ($isSubmited)
+        <form action="{{ URL('/exam/class/OldExam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
+            <button type="submit" class="btn btn-primary">View</button>
         </form>
-    @else
+    @elseif (!$isExpired)
+        <form action="{{ URL('/exam/class/' . $classID . '/' . $examForStudent->id) }}" method="GET">
+            <button type="submit" class="btn btn-primary" id="attemp">Attempt</button>
+        </form>
+    @elseif($isExpired)
         <script type="text/javascript">
             var count_id = "@php echo $date_today; @endphp";
             var countDownDate = new Date(count_id).getTime();
@@ -33,7 +37,6 @@
                 }
             }, 1000);
         </script>
-
         @php
             echo '<p id="demo" ></p>';
         @endphp

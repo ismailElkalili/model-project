@@ -45,7 +45,7 @@ class SubjectController extends Controller
             'subject_name' => $request['subject_name'],
             'level_id' => $request['subject_level'],
         ]);
-        return redirect('subject/index');
+        return redirect()->route('indexSubject');
     }
 
     /**
@@ -85,7 +85,7 @@ class SubjectController extends Controller
             'subject_name' => $request['subject_name'],
             'level_id' => $request['subject_level']
         ]);
-        return redirect('subject/index');
+        return redirect()->route('indexSubject');
     }
 
     /**

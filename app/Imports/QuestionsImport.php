@@ -13,19 +13,19 @@ class QuestionsImport implements ToCollection, WithGroupedHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            $isEx = DB::table('exams')->where('exam_name', $row['code'])->exists();
+            $isEx = DB::table('exams')->where('exam_code', $row['code'])->exists();
             if ($isEx) {
-                $exam = DB::table('exams')->where('exam_name', $row['code'])->first();
+                $exam = DB::table('exams')->where('exam_code', $row['code'])->first();
                 $ques = new Question();
                 $ques->exam_id = $exam->id;
-                $ques->question_text = $row['q'];
+                $ques->question_text = $row['question'];
                 $ques->question_type = 'test';
                 $ques->question_mark = 0;
                 if ($ques->save()) {
-                    if ($row['is_c']) {
+                    if ($row['right_answer']) {
                         DB::table('quistion_options')->insert([
                             'question_id' => $ques->id,
-                            'options' => json_encode($row['is_c']) ?? "{}",
+                            'options' => json_encode($row['right_answer']) ?? "{}",
                             'right_answer' => 1,
                         ]);
                     }
@@ -42,7 +42,6 @@ class QuestionsImport implements ToCollection, WithGroupedHeadingRow
                             'right_answer' => 0,
                         ]);
                     }
-
                 }
 
             } else {

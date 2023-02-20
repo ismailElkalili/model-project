@@ -19,24 +19,29 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>
-                        {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
-                            <i class="fas fa-folder">
-                            </i>
-                            View
-                        </a> --}}
-                        <a class="btn btn-info btn-sm" href="{{ url('/level/edit/' . $item->id) }}">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Edit
-                        </a>
-                        <span>
-                        <form style="display: inline"  method="POST" action="{{ url('/level_archive/restore/' . $item->id) }}">
-                            @csrf
-                            <button type="sumbit" class="btn btn-danger btn-sm" ><i class="fas fa-trash">
-                                </i><span>Restoer</span></button>
-                        </form>
-                        </span>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <form class="form-line" method="POST"
+                                    action="{{ url('/level_archive/restore/' . $item->id) }}">
+                                    @csrf
+                                    <button class="btn btn-info btn-sm" type="sumbit" class="btn btn-danger">
+                                        Restore</button>
+                                </form>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <form class="form-line" method="POST"
+                                    action="{{ URL('/level_archive/destroy/' . $item->id) }}">
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                        Delete</button>
+                                </form>
+                            </div>
+
+                        </div>
+
                     </td>
+                    
                 </tr>
             @endforeach
         </table>
