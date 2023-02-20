@@ -60,7 +60,6 @@ class TeacherProfileController extends Controller
 
     public function acceptStudent($stdClassID)
     {
-
         DB::table('std_classes')->where('id', $stdClassID)->update([
             'state' => 2
         ]);

@@ -9,34 +9,19 @@ use App\Http\Requests\TeacherRequest;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $teachers = DB::table('teachers')->where('isDelete', 0)->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
         return view('teacher.index')->with('teachers', $teachers);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $levels = DB::table('levels')->get();
         return view('teacher.create')->with('levels', $levels);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TeacherRequest $request)
     {
         $request->validate([
@@ -63,23 +48,7 @@ class TeacherController extends Controller
         return redirect()->route('indexTeacher');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($teacherId)
     {
         $teacher = DB::table('teachers')->where('id', $teacherId)->first();
@@ -93,13 +62,6 @@ class TeacherController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(TeacherRequest $request, $id)
     {
 
@@ -132,12 +94,6 @@ class TeacherController extends Controller
         return redirect()->route('indexTeacher');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         DB::table('teachers')->where('id', $id)->delete();

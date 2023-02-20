@@ -66,23 +66,6 @@ class ClassController extends Controller
             ->with('subjects', $subjects);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($classID)
     {
         $classes = DB::table('classes')->where('id', $classID)->first();
@@ -94,13 +77,6 @@ class ClassController extends Controller
             ->with('subjects', $subjects);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ClassRequest $request, $classID)
     {
         $teachers = DB::table('teachers')->get();
@@ -118,14 +94,5 @@ class ClassController extends Controller
             ->with('teachers', $teachers)
             ->with('subjects', $subjects);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-  
-
 
 }

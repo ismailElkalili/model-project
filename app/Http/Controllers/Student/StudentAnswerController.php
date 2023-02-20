@@ -15,14 +15,13 @@ class StudentAnswerController extends Controller
 
         $answers = $request['datas'];
         $examID = $request['exam'];
-        foreach ($answers as $item) {
+    
             DB::table('std_answers')->insert([
-                'student_answer' => $item,
-                'option_id' => array_search($item, $answers),
+               'student_answer' =>  json_encode($answers),
                 'exam_id' => $examID,
                 'student_id' => 1,
             ]);
-        }
+        
         return redirect()->route('indexStudents');
     }
     

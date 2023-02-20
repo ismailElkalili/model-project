@@ -66,16 +66,17 @@ class ExamController extends Controller
     {
         $examTime = DB::table('exams')->select('exam_startAt', 'exam_duration')->where('id', $examID)->first();
         $isExpired = IsExpiredTime::isExpiredTime($examTime->exam_startAt, $examTime->exam_duration);
-        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID);
+        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID,0);
         return view('exam.new_exam', ['qAndOp' => $qAndOp, 'examTime' => $examTime, 'classID' => $classID, 'isExpired' => $isExpired]);
     }
 
-    
-
     public function showAnswersForStudent($classID, $examID)
     {
-        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID);
-        return view('exam.old_exam', ['qAndOp' => $qAndOp]);
+        $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID,0);
+        $qAndOpWithAnswers = ExamController::getQuestionsAndOpExam($classID, $examID,1);
+        $answersStudent = DB::table('std_answers')->where('exam_id', $examID)->where('student_id', 1)->first();
+
+        return view('exam.old_exam', ['qAndOp' => $qAndOp,'qAndOpWithAnswers' => $qAndOpWithAnswers, 'answersStudent' => $answersStudent]);
     }
 
     public function importView(Request $request, $exam_code)
@@ -93,14 +94,14 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
-
-    public function getQuestionsAndOpExam($classID, $examID)
+    public function getQuestionsAndOpExam($classID, $examID, $rightAnswer)
     {
-        $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = 0 AND q.id = qo.question_id AND q.exam_id IN(
+        $qForGetQAndOp = 'SELECT q.* ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = ' . $rightAnswer . ' AND q.id = qo.question_id AND q.exam_id IN(
             SELECT e.id FROM `exams` AS e WHERE e.id = ' . $examID . ' AND e.exam_state = 0 AND e.class_id IN(
             SELECT std_c.class_id FROM `std_classes` AS std_c WHERE std_c.class_id = ' . $classID . '
             )
             )';
         return DB::select($qForGetQAndOp);
     }
+
 }
