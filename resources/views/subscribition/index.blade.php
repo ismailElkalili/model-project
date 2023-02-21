@@ -5,41 +5,47 @@
             <h3 class="card-title">
                 Subscribtion index
             </h3>
-            <a class="btn btn-info btn-sm float-right" href="{{url('/subscribtion/create')}}"> create new Subscribtion</a>
+            <a class="btn btn-info btn-sm float-right" href="{{ url('/subscribtion/create') }}"> create new Subscribtion</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-
-                <tr>
-                    <th style="width: 40px">id</th>
-                    <th>Subscribtion Plan</th>
-                    <th style="width: 250px">Actions</th>
-                </tr>
-                @foreach ($subscribtion as $item)
+                @if ($subscribtion->count() == 0)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->subscribtion_plan }}</td>
-                        <td>
-                            <form class="form-inline" method="POST" action="{{ URL('/subscribition_archive/archive/' . $item->id) }}">
-                                @csrf
-                                {{--  <a class="btn btn-primary btn-sm" href="{{ url('/subscribtion/show/' . $item->id) }}">
+                        <th>No Data</th>
+                    </tr>
+                @else
+                    <tr>
+                        <th style="width: 40px">id</th>
+                        <th>Subscribtion Plan</th>
+                        <th style="width: 250px">Actions</th>
+                    </tr>
+                    @foreach ($subscribtion as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->subscribtion_plan }}</td>
+                            <td>
+                                <form class="form-inline" method="POST"
+                                    action="{{ URL('/subscribition_archive/archive/' . $item->id) }}">
+                                    @csrf
+                                    {{--  <a class="btn btn-primary btn-sm" href="{{ url('/subscribtion/show/' . $item->id) }}">
                                 <i class="fas fa-folder">
                                 </i>
                                 View
                             </a>  --}}
 
-                                <a class="btn btn-info btn-sm" href="{{ url('/subscribtion/edit/' . $item->id) }}">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Edit
-                                </a>
-                                <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i>
-                                    Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                                    <a class="btn btn-info btn-sm" href="{{ url('/subscribtion/edit/' . $item->id) }}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                        Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

@@ -9,49 +9,55 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                <tr>
-                    <th style="width: 40px">id</th>
-                    <th>sbuject name</th>
-                    <th>level name</th>
-                    <th style="width: 250px">Actions</th>
-                </tr>
-                @foreach ($subjects as $item)
+                @if ($subjects->count() == 0)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->subject_name }}</td>
-                        @if (is_null($item->level_id))
-                            <td> not assign yet</td>
-                        @else
-                            @foreach ($levels as $level)
-                                @if ($item->level_id == $level->id)
-                                    <td> {{ $level->name }} </td>
-                                @else
-                                    <td> not assign yet</td>
-                                @endif
-                            @endforeach
-                        @endif
-                        <td>
-                            {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
+                        <th>No Data</th>
+                    </tr>
+                @else
+                    <tr>
+                        <th style="width: 40px">id</th>
+                        <th>sbuject name</th>
+                        <th>level name</th>
+                        <th style="width: 250px">Actions</th>
+                    </tr>
+                    @foreach ($subjects as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->subject_name }}</td>
+                            @if (is_null($item->level_id))
+                                <td> not assign yet</td>
+                            @else
+                                @foreach ($levels as $level)
+                                    @if ($item->level_id == $level->id)
+                                        <td> {{ $level->name }} </td>
+                                    @else
+                                        <td> not assign yet</td>
+                                    @endif
+                                @endforeach
+                            @endif
+                            <td>
+                                {{-- <a class="btn btn-primary btn-sm" href="{{ url('/level/show/' . $item->id) }}">
                                 <i class="fas fa-folder">
                                 </i>
                                 View
                             </a> --}}
-                            <a class="btn btn-info btn-sm" href="{{ url('/subject/edit/' . $item->id) }}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <span>
-                                <form style="display: inline" method="POST"
-                                    action="{{ url('/subject_archive/archive/' . $item->id) }}">
-                                    @csrf
-                                    <button type="sumbit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
-                                        </i><span>Delete</span></button>
-                                </form>
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
+                                <a class="btn btn-info btn-sm" href="{{ url('/subject/edit/' . $item->id) }}">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <span>
+                                    <form style="display: inline" method="POST"
+                                        action="{{ url('/subject_archive/archive/' . $item->id) }}">
+                                        @csrf
+                                        <button type="sumbit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i><span>Delete</span></button>
+                                    </form>
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

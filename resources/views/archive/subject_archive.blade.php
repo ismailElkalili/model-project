@@ -9,51 +9,57 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                <tr>
-                    <th style="width: 40px">id</th>
-                    <th>sbuject name</th>
-                    <th>level name</th>
-                    <th style="width: 250px">Actions</th>
-                </tr>
-                @foreach ($subjects as $item)
+                @if ($subjects->count() == 0)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->subject_name }}</td>
-                        @if (is_null($item->level_id))
-                            <td> not assign yet</td>
-                        @else
-                            @foreach ($levels as $level)
-                                @if ($item->level_id == $level->id)
-                                    <td> {{ $level->name }} </td>
-                                @else
-                                    <td> not assign yet</td>
-                                @endif
-                            @endforeach
-                        @endif
-                        <td>
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <form class="form-line" method="POST"
-                                        action="{{ url('/subject_archive/restore/' . $item->id) }}">
-                                        @csrf
-                                        <button class="btn btn-info btn-sm" type="sumbit" class="btn btn-danger">
-                                            Restore</button>
-                                    </form>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <form class="form-line" method="POST"
-                                        action="{{ URL('/subject_archive/destroy/' . $item->id) }}">
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                            Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-
+                        <th>No Data</th>
                     </tr>
-                @endforeach
+                @else
+                    <tr>
+                        <th style="width: 40px">id</th>
+                        <th>sbuject name</th>
+                        <th>level name</th>
+                        <th style="width: 250px">Actions</th>
+                    </tr>
+                    @foreach ($subjects as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->subject_name }}</td>
+                            @if (is_null($item->level_id))
+                                <td> not assign yet</td>
+                            @else
+                                @foreach ($levels as $level)
+                                    @if ($item->level_id == $level->id)
+                                        <td> {{ $level->name }} </td>
+                                    @else
+                                        <td> not assign yet</td>
+                                    @endif
+                                @endforeach
+                            @endif
+                            <td>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <form class="form-line" method="POST"
+                                            action="{{ url('/subject_archive/restore/' . $item->id) }}">
+                                            @csrf
+                                            <button class="btn btn-info btn-sm" type="sumbit" class="btn btn-danger">
+                                                Restore</button>
+                                        </form>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <form class="form-line" method="POST"
+                                            action="{{ URL('/subject_archive/destroy/' . $item->id) }}">
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                                Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>
