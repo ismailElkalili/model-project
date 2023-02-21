@@ -20,7 +20,7 @@ class QuestionsImport implements ToCollection, WithGroupedHeadingRow
                 $ques->exam_id = $exam->id;
                 $ques->question_text = $row['question'];
                 $ques->question_type = 'test';
-                $ques->question_mark = 0;
+                $ques->question_mark = $row['mark'];
                 if ($ques->save()) {
                     if ($row['right_answer']) {
                         DB::table('quistion_options')->insert([

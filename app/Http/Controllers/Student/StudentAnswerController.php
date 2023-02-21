@@ -9,20 +9,22 @@ use Illuminate\Support\Facades\DB;
 
 class StudentAnswerController extends Controller
 {
-    
+
     public function stoerAnswersExam(Request $request)
     {
-
         $answers = $request['datas'];
         $examID = $request['exam'];
-    
-            DB::table('std_answers')->insert([
-               'student_answer' =>  json_encode($answers),
-                'exam_id' => $examID,
-                'student_id' => 1,
-            ]);
-        
+        $classID = $request['classID'];
+
+        $mark = StudentGradeController::sumGradeForStudent($answers ,$examID ,$classID);
+        DB::table('std_answers')->insert([
+            'student_answer' => json_encode($answers),
+            'exam_id' => $examID,
+            'student_id' => 1,
+            'student_mark' => $mark,
+        ]);
+
         return redirect()->route('indexStudents');
     }
-    
+
 }

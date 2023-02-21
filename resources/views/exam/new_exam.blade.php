@@ -16,13 +16,13 @@
                 @foreach ($qAndOp as $qAndOpItem)
                     <p>{{ $qAndOpItem->question_text }}</p>
                     @foreach (json_decode($qAndOpItem->options, true) as $op)
-                        <input onclick="display(this)" type="radio" id="{{ $qAndOpItem->id }}#{{ $op }}"
-                            name="{{ $qAndOpItem->id }}" value="HTML">
+                        <input onclick="display(this)" type="radio" id="{{ $qAndOpItem->question_id }}#{{ $op }}"
+                            name="{{ $qAndOpItem->question_id }}" value="HTML">
                         <label for="html">{{ $op }}</label><br>
                     @endforeach
                     <br>
                 @endforeach
-
+                <input hidden id="classID" name="classID" value="{{ $classID }}"> 
                 <input hidden id="examID" name="examID" value="{{ $qAndOp[0]->exam_id }}">
                 <button type="submit" id="test1" class="btn btn-primary">Submit</button>
             </form>
@@ -48,6 +48,7 @@
             answers[querstion_id] = question_ansewr;
         }
         var exam = document.getElementById("examID").value;
+        var classID = document.getElementById("classID").value;
         var count_id = "@php echo $date_today; @endphp";
         var countDownDate = new Date(count_id).getTime();
 
@@ -71,7 +72,8 @@
                         data: {
                             'datas': answers,
                             '_token': '<?= csrf_token() ?>',
-                            'exam': exam
+                            'exam': exam,
+                            'classID':classID
                         },
                         success: function(data) {
                             top.location.href = "http://127.0.0.1:8000/student/index";
@@ -94,7 +96,8 @@
                     data: {
                         'datas': answers,
                         '_token': '<?= csrf_token() ?>',
-                        'exam': exam
+                        'exam': exam,
+                        'classID':classID
                     },
                     success: function(data) {
                         top.location.href = "http://127.0.0.1:8000/student/index";
