@@ -14,18 +14,21 @@ class StudentClassController extends Controller
         $student = DB::table('students')->where('id', '=', $studentID)->first();
         $level = DB::table('levels')->where('id', $student->level_id)->first();
 
-        $subjectsJoin = StudentClassController::subjectsJoin($studentID);  
+        $subjectsJoin = StudentClassController::subjectsJoin($studentID);
 
         $subjectsAccpet = StudentClassController::subjectsAccpet($studentID);
 
-        $subjectsUnJoin = StudentClassController::subjectsUnJoin($studentID , $level->id);
+        $subjectsUnJoin = StudentClassController::subjectsUnJoin($studentID, $level->id);
 
-        return view('std_class.index', ['student' => $student,
+        return view('std_class.index', [
+            'student' => $student,
             'level' => $level,
             'subjectsJoin' => $subjectsJoin,
             'subjectsUnJoin' => $subjectsUnJoin,
-            'subjectsAccpet' => $subjectsAccpet]);
+            'subjectsAccpet' => $subjectsAccpet
+        ]);
     }
+
 
     public function joinClass(Request $request, $classID, $studentID)
     {
@@ -34,8 +37,12 @@ class StudentClassController extends Controller
             'class_id' => $classID,
             'state' => 1,
         ]);
-
-        return redirect()->route('studentClassProfile', $studentID);
+        dd($request);
+        if ($request->is('/stdClass/profile/*')) {
+            return redirect()->route('studentClassProfile', $studentID);
+        } else {
+            return redirect()->route('studentProfile', $studentID);
+        }
     }
 
     public function subjectsJoin($studentID)
@@ -49,24 +56,27 @@ class StudentClassController extends Controller
     }
 
 
-    public function subjectsUnJoin($studentID , $levelID){
+    public function subjectsUnJoin($studentID, $levelID)
+    {
         $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.level_id = ' . $levelID . ' AND c.teacher_id = t.id AND c.id NOT IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
             )
             )';
 
-            return DB::select($qForSubjectsUnJoin);;
+        return DB::select($qForSubjectsUnJoin);
+        ;
     }
 
-    public function subjectsAccpet($studentID){
+    public function subjectsAccpet($studentID)
+    {
         $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID, c.class_name AS class_name ,t.teacher_name as teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2 AND std_classes.student_id = ' . $studentID . '
             )
             )';
 
-            return DB::select($qForSubjectsAccpet);
+        return DB::select($qForSubjectsAccpet);
     }
 
 }

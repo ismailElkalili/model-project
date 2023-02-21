@@ -12,7 +12,7 @@ Route::controller(StudentController::class)->group(function () {
     Route::post('/student/store', 'store');
     Route::get('/student/edit/{studentID}', 'edit');
     Route::post('/student/update/{studentID}', 'update');
-    
+
 });
 Route::controller(StudentClassController::class)->group(function () {
     Route::get('/stdClass/profile/{studentID}', 'profile')->name('studentClassProfile');
@@ -21,9 +21,12 @@ Route::controller(StudentClassController::class)->group(function () {
     Route::get('/stdClass/edit/{studentID}', 'edit');
     Route::post('/stdClass/update/{studentID}', 'update');
     Route::post('/student/joinClass/{classID}/{studentID}', 'joinClass');
-  
+
 });
 
-Route::controller(StudentAnswerController::class)->group(function(){
+Route::controller(StudentAnswerController::class)->group(function () {
     Route::post('/exam/class/answersStoer', 'stoerAnswersExam');
+});
+Route::controller(StudentClassController::class)->group(function () {
+    Route::get('/student_profile/{studentID}', 'profile')->name('studentProfile');
 });

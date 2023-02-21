@@ -35,6 +35,32 @@ class TeacherProfileController extends Controller
                 'exams' => $exams,
             ]);
     }
+    public function getdata($teacherId)
+    {
+
+        $teacher = DB::table('teachers')->where('id', $teacherId)->first();
+        $level = DB::table('levels')->where('id', $teacher->level_id)->first();
+        $classes = DB::select('SELECT c.* , s.subject_name , s.id AS sub_id FROM `subjects` AS s,`classes` AS c WHERE  c.teacher_id =' . $teacher->id . ' AND c.subject_id =s.id');
+        $subjects = DB::select('SELECT s.* FROM subjects AS s
+            WHERE s.id IN (
+                 SELECT c.id FROM classes as c WHERE c.teacher_id =' . $teacher->id . '
+                 )');
+        $exams = DB::select('SELECT ex.*,sub.subject_name ,cs.class_name 
+        FROM exams AS ex,subjects AS sub ,classes AS cs 
+        WHERE ex.class_id = cs.id 
+        AND cs.teacher_id = 1 
+        AND  sub.id = cs.subject_id
+        ');
+
+        return view('teacher_panel.teacher_panel')
+            ->with([
+                'teacher' => $teacher,
+                'level' => $level,
+                'classes' => $classes,
+                'subjects' => $subjects,
+                'exams' => $exams,
+            ]);
+    }
 
     public function getSubjcteForTeacher($teacherId, $classID, $subjectID)
     {

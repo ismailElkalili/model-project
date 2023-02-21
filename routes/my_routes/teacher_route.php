@@ -12,7 +12,7 @@ Route::controller(ExamController::class)->group(function () {
     Route::get('/exam/show/{classID}/{studentID}', 'showExamsForStudnet');
     Route::get('/exam/class/examIndex/{classID}/{examID}', 'showExamDetails')->name('examDetails');
     Route::get('/exam/class/{classID}/{examID}', 'showExamQuestions');
-    
+
     Route::get('/exam/class/OldExam/{classID}/{examID}', 'showAnswersForStudent');
 });
 
@@ -31,4 +31,7 @@ Route::controller(TeacherProfileController::class)->group(function () {
     Route::post('/acceptStudent/{stdClassID}', 'acceptStudent');
     Route::post('/rejectStudent/{stdClassID}', 'rejectStudent');
 
+});
+Route::controller(TeacherProfileController::class)->group(function () {
+    Route::get('/teacher_profile/{teacherId}', 'getdata')->name('teacher_panel');
 });

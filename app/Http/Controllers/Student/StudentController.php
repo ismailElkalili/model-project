@@ -25,7 +25,7 @@ class StudentController extends Controller
     }
 
     
-    public function store(StudentRequest $request)
+    public function store(Request $request)
     {
 
         if ($request->hasFile('image')) {
