@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
-   
+
     public function index()
     {
         $students = DB::table('students')->where('isDelete', 0)->get();
@@ -17,15 +17,15 @@ class StudentController extends Controller
         return view('student.index', ['students' => $students, 'levels' => $levels]);
     }
 
-    
+
     public function create()
     {
         $levels = DB::table('levels')->get();
         return view('student.create', ['levels' => $levels]);
     }
 
-    
-    public function store(Request $request)
+
+    public function store(StudentRequest $request)
     {
 
         if ($request->hasFile('image')) {
@@ -47,13 +47,13 @@ class StudentController extends Controller
         return redirect()->route('indexStudents');
     }
 
-   
+
     public function edit($studentsID)
     {
         $student = DB::table('students')->where('id', '=', $studentsID)->first();
         $levels = DB::table('levels')->get();
 
-        return view('student.edit' , ['student'=> $student , 'levels'=> $levels]);
+        return view('student.edit', ['student' => $student, 'levels' => $levels]);
     }
 
 
@@ -74,5 +74,5 @@ class StudentController extends Controller
         return redirect()->route('indexStudents');
     }
 
-  
+
 }
