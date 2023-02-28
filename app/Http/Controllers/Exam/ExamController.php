@@ -81,6 +81,7 @@ class ExamController extends Controller
             for ($i = 0; $i < count($qAndOpWithAnswers); $i++) {
                 $allQuestionesAndStudentAnswers[$qAndOpWithAnswers[$i]->question_id] = $arrayAnswerStudentsJson[$qAndOpWithAnswers[$i]->question_id]??"";
             }
+            
         return view('exam.old_exam', ['qAndOp' => $qAndOp, 'qAndOpWithAnswers' => $qAndOpWithAnswers, 'answersStudent' => $allQuestionesAndStudentAnswers , 'studentMark'=>$studentMark ]);
     }
 

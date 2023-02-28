@@ -9,38 +9,44 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                <tr>
-                    <th style="width: 40px">id</th>
-                    <th>Subscribtion Plan</th>
-                    <th style="width: 250px">Actions</th>
-                </tr>
-                @foreach ($subscribtion as $item)
+                @if ($subscribtion->count() == 0)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->subscribtion_plan }}</td>
-                        <td>
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <form class="form-line" method="POST"
-                                        action="{{ URL('/subscribition_archive/restore/' . $item->id) }}">
-                                        @csrf
-                                        <button class="btn btn-info btn-sm" type="sumbit" class="btn btn-danger">
-                                            Restore</button>
-                                    </form>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <form class="form-line" method="POST"
-                                        action="{{ URL('/subscribition_archive/destroy/' . $item->id) }}">
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                            Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
+                        <th>No Data</th>
                     </tr>
-                @endforeach
+                @else
+                    <tr>
+                        <th style="width: 40px">id</th>
+                        <th>Subscribtion Plan</th>
+                        <th style="width: 250px">Actions</th>
+                    </tr>
+                    @foreach ($subscribtion as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->subscribtion_plan }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <form class="form-line" method="POST"
+                                            action="{{ URL('/subscribition_archive/restore/' . $item->id) }}">
+                                            @csrf
+                                            <button class="btn btn-info btn-sm" type="sumbit" class="btn btn-danger">
+                                                Restore</button>
+                                        </form>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <form class="form-line" method="POST"
+                                            action="{{ URL('/subscribition_archive/destroy/' . $item->id) }}">
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm" type="sumbit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                                Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>
