@@ -19,7 +19,7 @@ class StudentClassController extends Controller
         $subjectsAccpet = StudentClassController::subjectsAccpet($studentID);
 
         $subjectsUnJoin = StudentClassController::subjectsUnJoin($studentID, $level->id);
-
+        //student_panel.student_panel
         return view('std_class.index', [
             'student' => $student,
             'level' => $level,

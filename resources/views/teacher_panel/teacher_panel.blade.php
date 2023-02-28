@@ -1,4 +1,4 @@
-  @extends('second-main')
+  @extends('second-main-panel.second-main')
   @section('profile')
       <section>
           <div class="container-fluid">
