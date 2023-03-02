@@ -13,13 +13,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
+    //teacher
 
     public function create()
     {
         $classes = DB::table('classes')->get();
         return view('exam.create')->with('classes', $classes);
     }
-
+    //teacher
     public function store(ExamRequest $request)
     {
         $exam_code = Str::random(Str::length($request['exam_name']));
@@ -34,20 +35,20 @@ class ExamController extends Controller
         ]);
         return back();
     }
-
+    //student
     public function show($exam_id)
     {
         $exam = DB::table('exams')->where('id', $exam_id)->first();
         return view('exam.show_exam_details', ['exam' => $exam]);
     }
-
+    //student
     public function showExamsForStudnet($classID, $studentID)
     {
         $examsForStudent = DB::select('SELECT e.* FROM `exams` AS e WHERE e.class_id = ' . $classID . '');
         return view('exam.index_exams_for_student', ['examsForStudent' => $examsForStudent]);
 
     }
-
+    //student
     public function showExamDetails($classID, $examID)
     {
         $examForStudent = DB::table('exams')->where('class_id', $classID)->where('id', $examID)->first();
@@ -59,9 +60,10 @@ class ExamController extends Controller
             'examForStudent' => $examForStudent,
             'isExpired' => $isExpired,
             'classID' => $classID,
-            'isSubmited' => $isSubmited]);
+            'isSubmited' => $isSubmited
+        ]);
     }
-
+    //student
     public function showExamQuestions($classID, $examID)
     {
         $examTime = DB::table('exams')->select('exam_startAt', 'exam_duration')->where('id', $examID)->first();
@@ -69,7 +71,7 @@ class ExamController extends Controller
         $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID, 0);
         return view('exam.new_exam', ['qAndOp' => $qAndOp, 'examTime' => $examTime, 'classID' => $classID, 'isExpired' => $isExpired]);
     }
-
+    //student
     public function showAnswersForStudent($classID, $examID)
     {
         $qAndOp = ExamController::getQuestionsAndOpExam($classID, $examID, 0);
@@ -78,18 +80,18 @@ class ExamController extends Controller
         $arrayAnswerStudentsJson = json_decode($answersStudent->student_answer, true);
         $studentMark = $answersStudent->student_mark;
         $allQuestionesAndStudentAnswers = [];
-            for ($i = 0; $i < count($qAndOpWithAnswers); $i++) {
-                $allQuestionesAndStudentAnswers[$qAndOpWithAnswers[$i]->question_id] = $arrayAnswerStudentsJson[$qAndOpWithAnswers[$i]->question_id]??"";
-            }
-            
-        return view('exam.old_exam', ['qAndOp' => $qAndOp, 'qAndOpWithAnswers' => $qAndOpWithAnswers, 'answersStudent' => $allQuestionesAndStudentAnswers , 'studentMark'=>$studentMark ]);
-    }
+        for ($i = 0; $i < count($qAndOpWithAnswers); $i++) {
+            $allQuestionesAndStudentAnswers[$qAndOpWithAnswers[$i]->question_id] = $arrayAnswerStudentsJson[$qAndOpWithAnswers[$i]->question_id] ?? "";
+        }
 
+        return view('exam.old_exam', ['qAndOp' => $qAndOp, 'qAndOpWithAnswers' => $qAndOpWithAnswers, 'answersStudent' => $allQuestionesAndStudentAnswers, 'studentMark' => $studentMark]);
+    }
+    //teacher
     public function importView(Request $request, $exam_code)
     {
         return view('question.craete', ['exam_code' => $exam_code]);
     }
-
+    //teacher
     public function import(Request $request)
     {
         Excel::import(
@@ -99,7 +101,7 @@ class ExamController extends Controller
 
         return redirect()->back();
     }
-
+    //methd out of context
     public static function getQuestionsAndOpExam($classID, $examID, $rightAnswer)
     {
         $qForGetQAndOp = 'SELECT q.question_text as question_text , q.id as question_id ,q.question_mark as question_mark ,q.exam_id as exam_id  ,qo.* FROM `quistion_options` AS qo ,`questions` AS q WHERE qo.right_answer = ' . $rightAnswer . ' AND q.id = qo.question_id AND q.exam_id IN(
