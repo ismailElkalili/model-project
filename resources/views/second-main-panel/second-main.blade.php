@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('second-main-panel.header')
+
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: rgb(230, 230, 230);">
     <div class="wrapper">
 
@@ -46,17 +47,34 @@
                     </div>
                 </li>
 
-
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
                         role="button">
                         <i class="fas fa-th-large"></i>
                     </a>
+                </li>
+                <li class="nav-item">
+                    {{-- to edit user profile --}}
+                    {{-- <a href="route('profile.edit')">
+                        {{ __('Profile') }}
+                    </a> --}}
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <button class="btn btn-outline-danger" href="route('logout')"
+                            onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </button>
+                    </form>
+
                 </li>
             </ul>
         </nav>
@@ -76,4 +94,5 @@
 
 </body>
 @include('second-main-panel.scripts')
+
 </html>

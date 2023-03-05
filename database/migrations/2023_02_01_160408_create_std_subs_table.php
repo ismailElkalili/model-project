@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->boolean('isDelete')->default(0);
             $table->timestamps();
             $table->foreign('sub_plan_id')->references('id')->on('subscribtions')->nullOnDelete();
-            $table->foreign('student_id')->references('id')->on('students')->nullOnDelete();
+            $table->foreign('student_id')->references('student_id')->on('students')->nullOnDelete();
 
         });
     }

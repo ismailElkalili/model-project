@@ -14,8 +14,7 @@ return new class extends Migration {
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('student_name')->unique();
-            $table->string('student_email')->unique();
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->string('student_image')->nullable();
             $table->date('student_dob');
             $table->boolean('gender');
@@ -23,6 +22,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('level_id')->nullable();
             $table->boolean('isDelete')->default(0);
             $table->timestamps();
+            $table->foreign('student_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();
         });
     }

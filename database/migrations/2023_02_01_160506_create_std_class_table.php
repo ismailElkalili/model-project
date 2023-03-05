@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('class_id')->nullable();
             $table->boolean('isDelete')->default(0);
             $table->timestamps();
-            $table->foreign('student_id')->references('id')->on('students')->nullOnDelete();
+            $table->foreign('student_id')->references('student_id')->on('students')->nullOnDelete();
             $table->foreign('class_id')->references('id')->on('classes')->nullOnDelete();
 
         });

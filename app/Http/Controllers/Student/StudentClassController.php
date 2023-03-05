@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StudentClassController extends Controller
 {
     public function profile($studentID)
     {
-
-        $student = DB::table('students')->where('id', '=', $studentID)->first();
+        $student = DB::table('students')->where('student_id', '=', $studentID)->first();
         $level = DB::table('levels')->where('id', $student->level_id)->first();
 
         $subjectsJoin = StudentClassController::subjectsJoin($studentID);

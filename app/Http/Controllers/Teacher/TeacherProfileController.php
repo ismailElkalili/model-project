@@ -38,12 +38,12 @@ class TeacherProfileController extends Controller
     public function getdata($teacherId)
     {
 
-        $teacher = DB::table('teachers')->where('id', $teacherId)->first();
+        $teacher = DB::table('teachers')->where('teacher_id', $teacherId)->first();
         $level = DB::table('levels')->where('id', $teacher->level_id)->first();
-        $classes = DB::select('SELECT c.* , s.subject_name , s.id AS sub_id FROM `subjects` AS s,`classes` AS c WHERE  c.teacher_id =' . $teacher->id . ' AND c.subject_id =s.id');
+        $classes = DB::select('SELECT c.* , s.subject_name , s.id AS sub_id FROM `subjects` AS s,`classes` AS c WHERE  c.teacher_id =' . $teacher->teacher_id . ' AND c.subject_id =s.id');
         $subjects = DB::select('SELECT s.* FROM subjects AS s
             WHERE s.id IN (
-                 SELECT c.id FROM classes as c WHERE c.teacher_id =' . $teacher->id . '
+                 SELECT c.id FROM classes as c WHERE c.teacher_id =' . $teacher->teacher_id . '
                  )');
         $exams = DB::select('SELECT ex.*,sub.subject_name ,cs.class_name 
         FROM exams AS ex,subjects AS sub ,classes AS cs 

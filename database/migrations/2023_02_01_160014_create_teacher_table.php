@@ -14,8 +14,7 @@ return new class extends Migration {
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('teacher_name')->unique();
-            $table->string('teacher_email')->unique();
+            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->date('Dob');
             $table->boolean('gender');
             $table->string('teacher_image')->nullable();
@@ -26,7 +25,7 @@ return new class extends Migration {
             $table->timestamps();
             //foreign key
             $table->foreign('level_id')->references('id')->on('levels')->nullOnDelete();
-
+            $table->foreign('teacher_id')->references('id')->on('users')->nullOnDelete();
         });
     }
 
