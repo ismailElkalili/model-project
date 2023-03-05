@@ -47,7 +47,7 @@ class StudentClassController extends Controller
 
     public function subjectsJoin($studentID)
     {
-        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.name FROM `users` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1 AND std_classes.student_id = ' . $studentID . '
             )
@@ -58,7 +58,7 @@ class StudentClassController extends Controller
 
     public function subjectsUnJoin($studentID, $levelID)
     {
-        $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+        $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.name FROM `users` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.level_id = ' . $levelID . ' AND c.teacher_id = t.id AND c.id NOT IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.student_id = ' . $studentID . '
             )
@@ -70,7 +70,7 @@ class StudentClassController extends Controller
 
     public function subjectsAccpet($studentID)
     {
-        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID, c.class_name AS class_name ,t.teacher_name as teacher_name FROM `teachers` as t, `subjects` AS subject,`classes` AS c WHERE(
+        $qForSubjectsAccpet = 'SELECT subject.*,c.id AS classID, c.class_name AS class_name ,t.name as name FROM `users` as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 2 AND std_classes.student_id = ' . $studentID . '
             )
