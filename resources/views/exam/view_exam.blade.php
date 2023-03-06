@@ -33,7 +33,9 @@
                 document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
                 if (distance < 0) {
                     clearInterval(x);
-                    document.getElementById("demo").style.display = 'none';
+                    // document.getElementById("demo").style.display = 'none';
+                    // window.alert('please reload the page');
+                    location.reload();
                 }
             }, 1000);
         </script>
