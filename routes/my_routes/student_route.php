@@ -30,3 +30,6 @@ Route::controller(StudentAnswerController::class)->group(function () {
 Route::controller(StudentClassController::class)->group(function () {
     Route::get('/student_profile/{studentID}', 'profile')->name('studentProfile');
 });
+Route::controller(StudentClassController::class)->group(function () {
+    Route::get('/student_profile_gust/{studentID}', 'studentProfile')->name('student_Profile');
+});

@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         $user = Auth::user();
         if ($user->is_student == 0) {
-            return redirect('/student_profile/' . $user->id);
+            return redirect('/student_profile_gust/' . $user->id);
         } else {
             return redirect('/teacher_profile/' . $user->id);
         }

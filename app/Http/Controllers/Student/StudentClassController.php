@@ -28,6 +28,25 @@ class StudentClassController extends Controller
             'subjectsAccpet' => $subjectsAccpet
         ]);
     }
+    public function studentProfile($studentID)
+    {
+        $student = DB::table('students')->where('student_id', '=', $studentID)->first();
+        $level = DB::table('levels')->where('id', $student->level_id)->first();
+
+        $subjectsJoin = StudentClassController::subjectsJoin($studentID);
+
+        $subjectsAccpet = StudentClassController::subjectsAccpet($studentID);
+
+        $subjectsUnJoin = StudentClassController::subjectsUnJoin($studentID, $level->id);
+        //student_panel.student_panel
+        return view('student_panel.student_panel', [
+            'student' => $student,
+            'level' => $level,
+            'subjectsJoin' => $subjectsJoin,
+            'subjectsUnJoin' => $subjectsUnJoin,
+            'subjectsAccpet' => $subjectsAccpet
+        ]);
+    }
 
 
     public function joinClass(Request $request, $classID, $studentID)
@@ -47,7 +66,7 @@ class StudentClassController extends Controller
 
     public function subjectsJoin($studentID)
     {
-        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.name FROM `users` as t, `subjects` AS subject,`classes` AS c WHERE(
+        $qForSubjectsJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,t.name FROM users as t, `subjects` AS subject,`classes` AS c WHERE(
             subject.id = c.subject_id AND c.teacher_id = t.id AND c.id IN (
             SELECT std_classes.class_id FROM std_classes WHERE std_classes.state = 1 AND std_classes.student_id = ' . $studentID . '
             )
