@@ -64,43 +64,43 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("demo").style.display = 'none';
+
                 $(document).ready(function() {
                     $.ajax({
-                        url: '{{ url('/exam/class/answersStoer') }}',
+                        url: 'http://127.0.0.1:8000/exam/class/answersStoer',
                         type: 'POST',
                         data: {
                             'datas': answers,
                             '_token': '<?= csrf_token() ?>',
                             'exam': exam,
-                            'classID': classID,
+                            'classID':classID
                         },
                         success: function(data) {
-                            console.log(answers);
-                            //top.location.href = "{{ url('/student/index') }}";
+                            top.location.href = "http://127.0.0.1:8000/student/index";
                         },
                         error: function(e) {
                             console.log(e);
                         }
                     });
                     return false;
-                });
+                })
+                
             }
         }, 1000);
 
         $(document).ready(function() {
             $("#sub-anwser").submit(function(e) {
                 $.ajax({
-                    url: '{{ url('/exam/class/answersStoer') }}',
+                    url: 'http://127.0.0.1:8000/exam/class/answersStoer',
                     type: 'POST',
                     data: {
                         'datas': answers,
                         '_token': '<?= csrf_token() ?>',
                         'exam': exam,
-                        'classID': classID,
+                        'classID':classID
                     },
                     success: function(data) {
-                        console.log(data);
-                       // top.location.href = "{{ url('/student/index') }}";
+                        top.location.href = "http://127.0.0.1:8000/student/index";
                     },
                     error: function(e) {
                         console.log(e);

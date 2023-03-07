@@ -1,8 +1,7 @@
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>students</title>
+    <title>AdminLTE 3 | Dashboard</title>
 
     <link rel="stylesheet" href="{{ asset('cp_assets/bootstrap.min.css') }}" />
 
@@ -29,4 +28,3 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 </head>
-

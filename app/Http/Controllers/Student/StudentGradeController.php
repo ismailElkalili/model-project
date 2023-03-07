@@ -10,7 +10,6 @@ class StudentGradeController extends Controller
     public static function sumGradeForStudent($answers, $exam, $classID)
     {
         $mark = 0;
-        dd($answers);
         $rightAnswer = ExamController::getQuestionsAndOpExam($classID, 1, 1);
         
         $keys = array_keys($answers);

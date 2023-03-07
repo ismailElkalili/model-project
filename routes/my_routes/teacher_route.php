@@ -14,11 +14,6 @@ Route::controller(ExamController::class)->group(function () {
     Route::post('/exam/store', 'store');
     //student(show his exam in that subject)
     Route::get('/exam/show/{classID}/{studentID}', 'showExamsForStudnet');
-
-});
-//remove to student route file
-Route::controller(StudentExamController::class)->group(function () {
-    //student(show his exam in that subject)
     Route::get('/std/exam/show/{classID}/{studentID}', 'showExamsForStudnet');
     //student(view the remaining time to start exam)
     Route::get('/std/exam/class/examIndex/{classID}/{examID}', 'showExamDetails')->name('examDetails');
@@ -27,6 +22,17 @@ Route::controller(StudentExamController::class)->group(function () {
 //student (see the result)
     Route::get('/std/exam/class/OldExam/{classID}/{examID}', 'showAnswersForStudent');
 });
+//remove to student route file
+// Route::controller(StudentExamController::class)->group(function () {
+//     //student(show his exam in that subject)
+//     Route::get('/std/exam/show/{classID}/{studentID}', 'showExamsForStudnet');
+//     //student(view the remaining time to start exam)
+//     Route::get('/std/exam/class/examIndex/{classID}/{examID}', 'showExamDetails')->name('examDetails');
+//     //student(attend the exam)
+//     Route::get('/std/exam/class/{classID}/{examID}', 'showExamQuestions');
+// //student (see the result)
+//     Route::get('/std/exam/class/OldExam/{classID}/{examID}', 'showAnswersForStudent');
+// });
 
 //deal with questions file(excel file)
 Route::get('/file-import/{examcode}', [ExamController::class, 'importView'])->name('import-view');
