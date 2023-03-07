@@ -7,11 +7,11 @@ use App\Http\Controllers\Exam\ExamController;
 
 class StudentGradeController extends Controller
 {
-    public static function sumGradeForStudent($answers, $examID, $classID)
+    public static function sumGradeForStudent($answers, $exam, $classID)
     {
         $mark = 0;
-
-        $rightAnswer = ExamController::getQuestionsAndOpExam($classID, $examID, 1);
+        dd($answers);
+        $rightAnswer = ExamController::getQuestionsAndOpExam($classID, 1, 1);
         
         $keys = array_keys($answers);
         for ($i = 0; $i < count($rightAnswer); $i++) {

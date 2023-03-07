@@ -32,7 +32,7 @@
                             @else
                                 @foreach ($teachers as $teacherItem)
                                     @if ($item->teacher_id == $teacherItem->id)
-                                        <td>{{ $teacherItem->teacher_name }}</td>
+                                        <td>{{ $teacherItem->name }}</td>
                                     @endif
                                 @endforeach
                             @endif

@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                @if ($studentsClassReq->count() == 0)
+                @if (count($studentsClassReq) == 0)
                     <tr>
                         <th>No Data</th>
                     </tr>
@@ -22,7 +22,7 @@
                     @foreach ($studentsClassReq as $studentsClassReqItem)
                         <tr>
                             <td>{{ $studentsClassReqItem->id }}</td>
-                            <td>{{ $studentsClassReqItem->student_name }}</td>
+                            <td>{{ $studentsClassReqItem->name }}</td>
                             <td>{{ $studentsClassReqItem->class_name }}</td>
                             <td>
                                 <form style="display: inline" method="POST"

@@ -30,14 +30,14 @@
                                 style="border-color: red;">
                                 <option value=''> choose teacher</option>
                                 @foreach ($teachers as $teacherItem)
-                                    <option value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
+                                    <option value={{ $teacherItem->id }}>{{ $teacherItem->name }}</option>
                                 @endforeach
                             </select>
                         @else
                             <select class="form-control custom-select" name="teacherID" id="teacherID">
                                 <option value=''> choose teacher</option>
                                 @foreach ($teachers as $teacherItem)
-                                    <option value={{ $teacherItem->id }}>{{ $teacherItem->teacher_name }}</option>
+                                    <option value={{ $teacherItem->id }}>{{ $teacherItem->name }}</option>
                                 @endforeach
                             </select>
                         @endif

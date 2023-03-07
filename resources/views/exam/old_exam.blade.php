@@ -1,4 +1,4 @@
-@extends('main')
+@extends('second-main-panel.second-main')
 @section('exam')
     @php
         $studentAnswer = $answersStudent;

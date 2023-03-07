@@ -12,7 +12,9 @@ class TeacherController extends Controller
    
     public function index()
     {
-        $teachers = DB::table('teachers')->where('isDelete', 0)->select(['id', 'teacher_name', 'teacher_email', 'teacher_phone_number'])->get();
+        $teachers = DB::table('teachers')->join('users' ,'teachers.teacher_id' , '=' , 'users.id')
+        ->where('teachers.isDelete', 0)->get();
+       
         return view('teacher.index')->with('teachers', $teachers);
     }
 
@@ -64,7 +66,6 @@ class TeacherController extends Controller
 
     public function update(TeacherRequest $request, $id)
     {
-
         $request->validate([
             'image' => 'image|mimes:png,jpg,jpeg|max:2048'
         ]);

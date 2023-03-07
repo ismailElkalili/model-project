@@ -12,7 +12,8 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = DB::table('students')->where('isDelete', 0)->get();
+        $students = DB::table('students')->join('users', 'students.student_id', '=', 'users.id')
+            ->where('students.isDelete', 0)->get();
         $levels = DB::table('levels')->where('isDelete', 0)->get();
         return view('student.index', ['students' => $students, 'levels' => $levels]);
     }

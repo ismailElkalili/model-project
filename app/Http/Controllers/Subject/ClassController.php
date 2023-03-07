@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Subject;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\ClassRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ClassController extends Controller
@@ -17,7 +17,8 @@ class ClassController extends Controller
     public function index()
     {
         $classes = DB::table('classes')->where('isDelete', 0)->get();
-        $teachers = DB::table('teachers')->get();
+        $teachers = DB::table('teachers')->join('users', 'teachers.teacher_id', '=', 'users.id')
+            ->where('teachers.isDelete', 0)->get();
         $subjects = DB::table('subjects')->get();
         return view('class.index')
             ->with('classes', $classes)
@@ -33,7 +34,8 @@ class ClassController extends Controller
     public function create()
     {
 
-        $teachers = DB::table('teachers')->get();
+        $teachers = DB::table('teachers')->join('users', 'teachers.teacher_id', '=', 'users.id')
+        ->where('teachers.isDelete', 0)->get();
         $subjects = DB::table('subjects')->get();
         return view('class.create')
             ->with('teachers', $teachers)

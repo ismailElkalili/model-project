@@ -27,8 +27,8 @@
                                 <img class="profile-user-img img-fluid img-circle" style="width: 125px; height: 125px;"
                                     src="{{ asset('storage/' . $student->student_image) }}" alt="User profile picture">
                             </div>
-                            <h3 class="profile-username text-center">{{ $student->student_name }}</h3>
-                            <p class="text-muted text-center">{{ $student->student_email }}</p>
+                            <h3 class="profile-username text-center">{{ $student->name }}</h3>
+                            <p class="text-muted text-center">{{ $student->email }}</p>
                             <p class="text-muted text-center">Level :{{ $level->name }}</p>
                         </div>
 
@@ -95,7 +95,7 @@
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->subject_name }}</td>
-                                                    <td>{{ $item->teacher_name }}</td>
+                                                    <td>{{ $item->name }}</td>
                                                     <td>
                                                         <form class="form-inline" method="POST">
                                                             @csrf
@@ -124,7 +124,7 @@
                                                 <tr>
                                                     <td>{{ $subjectsAccpetItem->id }}</td>
                                                     <td>{{ $subjectsAccpetItem->subject_name }}</td>
-                                                    <td>{{ $subjectsAccpetItem->teacher_name }}</td>
+                                                    <td>{{ $subjectsAccpetItem->name }}</td>
                                                     <td> <a class="btn btn-primary btn-sm"
                                                             href="{{ URL('/exam/show/' . $subjectsAccpetItem->id . '/' . $student->id) }}">
                                                             <i class="fas fa-user">
@@ -158,7 +158,7 @@
                                                     <tr>
                                                         <td>{{ $subUnJoin->classID }}</td>
                                                         <td>{{ $subUnJoin->subject_name }}</td>
-                                                        <td>{{ $subUnJoin->teacher_name }}</td>
+                                                        <td>{{ $subUnJoin->name }}</td>
                                                         <td>
                                                             <form class="form-inline" method="POST"
                                                                 action="{{ URL('/student/joinClass/' . $subUnJoin->classID . '/' . $student->id) }}">

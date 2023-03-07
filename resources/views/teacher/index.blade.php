@@ -24,8 +24,8 @@
                     @foreach ($teachers as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->teacher_name }}</td>
-                            <td>{{ $item->teacher_email }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
                             @if (is_null($item->teacher_phone_number))
                                 <td>not exist</td>
                             @else

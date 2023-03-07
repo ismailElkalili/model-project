@@ -27,8 +27,8 @@
                     @foreach ($students as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->student_name }}</td>
-                            <td>{{ $item->student_email }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
                             <td>{{ $item->student_dob }}</td>
                             @if ($item->gender == 0)
                                 <td>Male</td>

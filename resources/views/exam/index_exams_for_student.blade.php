@@ -1,4 +1,4 @@
-@extends('main')
+@extends('second-main-panel.second-main')
 @section('exam')
     <div class="card">
         <div class="card-header">
@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                @if ($examsForStudent->count() == 0)
+                @if (count($examsForStudent) == 0)
                     <tr>
                         <th>No Data</th>
                     </tr>
@@ -24,7 +24,7 @@
                             <td>{{ $examIitem->exam_name }}</td>
                             <td>
                                 <a class="btn btn-info btn-sm"
-                                    href="{{ url('/exam/class/examIndex/' . $examIitem->class_id . '/' . $examIitem->id) }}">
+                                    href="{{ url('/std/exam/class/examIndex/' . $examIitem->class_id . '/' . $examIitem->id) }}">
                                     <i>
                                     </i>
                                     View

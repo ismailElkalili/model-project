@@ -1,4 +1,4 @@
-@extends('main')
+@extends('second-main-panel.second-main')
 @section('exam')
     @php
         $timeE = Carbon\Carbon::parse($examTime->exam_startAt)->addMinutes($examTime->exam_duration);
@@ -22,7 +22,7 @@
                     @endforeach
                     <br>
                 @endforeach
-                <input hidden id="classID" name="classID" value="{{ $classID }}"> 
+                <input hidden id="classID" name="classID" value="{{ $classID }}">
                 <input hidden id="examID" name="examID" value="{{ $qAndOp[0]->exam_id }}">
                 <button type="submit" id="test1" class="btn btn-primary">Submit</button>
             </form>
@@ -64,43 +64,43 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("demo").style.display = 'none';
-
                 $(document).ready(function() {
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/exam/class/answersStoer',
+                        url: '{{ url('/exam/class/answersStoer') }}',
                         type: 'POST',
                         data: {
                             'datas': answers,
                             '_token': '<?= csrf_token() ?>',
                             'exam': exam,
-                            'classID':classID
+                            'classID': classID,
                         },
                         success: function(data) {
-                            top.location.href = "http://127.0.0.1:8000/student/index";
+                            console.log(answers);
+                            //top.location.href = "{{ url('/student/index') }}";
                         },
                         error: function(e) {
                             console.log(e);
                         }
                     });
                     return false;
-                })
-                
+                });
             }
         }, 1000);
 
         $(document).ready(function() {
             $("#sub-anwser").submit(function(e) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/exam/class/answersStoer',
+                    url: '{{ url('/exam/class/answersStoer') }}',
                     type: 'POST',
                     data: {
                         'datas': answers,
                         '_token': '<?= csrf_token() ?>',
                         'exam': exam,
-                        'classID':classID
+                        'classID': classID,
                     },
                     success: function(data) {
-                        top.location.href = "http://127.0.0.1:8000/student/index";
+                        console.log(data);
+                       // top.location.href = "{{ url('/student/index') }}";
                     },
                     error: function(e) {
                         console.log(e);

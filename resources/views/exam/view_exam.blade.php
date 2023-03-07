@@ -1,4 +1,4 @@
-@extends('main')
+@extends('second-main-panel.second-main')
 @section('exam')
     @php
         $date = Carbon\Carbon::parse($examForStudent->exam_startAt)->format('Y-m-d');
@@ -10,11 +10,11 @@
     <h1>{{ $examForStudent->exam_startAt }}</h1>
 
     @if ($isSubmited)
-        <form action="{{ URL('/exam/class/OldExam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
+        <form action="{{ URL('/std/exam/class/OldExam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
             <button type="submit" class="btn btn-primary">View</button>
         </form>
     @elseif (!$isExpired)
-        <form action="{{ URL('/exam/class/' . $classID . '/' . $examForStudent->id) }}" method="GET">
+        <form action="{{ URL('/std/exam/class/' . $classID . '/' . $examForStudent->id) }}" method="GET">
             <button type="submit" class="btn btn-primary" id="attemp">Attempt</button>
         </form>
     @elseif($isExpired)
@@ -33,9 +33,9 @@
                 document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
                 if (distance < 0) {
                     clearInterval(x);
-                    // document.getElementById("demo").style.display = 'none';
-                    // window.alert('please reload the page');
-                    location.reload();
+                     document.getElementById("demo").style.display = 'none';
+                     window.alert('please reload the page');
+                    //location.reload();
                 }
             }, 1000);
         </script>

@@ -27,9 +27,9 @@
                                 <img class="profile-user-img img-fluid img-circle" style="width: 150px; height: 150px;"
                                     src="{{ asset('storage/' . $student->student_image) }}" alt="User profile picture">
                             </div>
-                            <h3 class="profile-username text-center">{{ Auth::user()->name }}
+                            <h3 class="profile-username text-center">{{ $student->name }}
                             </h3>
-                            <p class="text-muted text-center">{{ Auth::user()->email }}</p>
+                            <p class="text-muted text-center">{{ $student->email }}</p>
                             <p class="text-muted text-center">Level :{{ $level->name }}</p>
                         </div>
 
@@ -126,7 +126,7 @@
                                                     <td>{{ $subjectsAccpetItem->id }}</td>
                                                     <td>{{ $subjectsAccpetItem->subject_name }}
                                                     </td>
-                                                    <td>{{ $subjectsAccpetItem->teacher_name }}
+                                                    <td>{{ $subjectsAccpetItem->name }}
                                                     </td>
                                                     <td> <a class="btn btn-primary btn-sm"
                                                             href="{{ URL('/exam/show/' . $subjectsAccpetItem->id . '/' . $student->id) }}">

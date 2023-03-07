@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 @include('second-main-panel.header')
 
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: rgb(230, 230, 230);">
@@ -52,7 +53,7 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
                         role="button">
@@ -86,13 +87,49 @@
                 <div class="container-fluid">
                     <div class="row " style="position: static;  display: inline; ">
                         @yield('profile')
+                        @yield('exam')
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+   
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- ChartJS -->
+    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+    <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+    <!-- daterangepicker -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- Workhouse App -->
+    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <!-- Workhouse for demo purposes -->
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
+    <script src="{{ asset('scripts/file_name_script.js') }}"></script>
+    <!-- Workhouse dashboard demo (This is only for demo purposes) -->
+    @yield('js')
 </body>
-@include('second-main-panel.scripts')
+
 
 </html>

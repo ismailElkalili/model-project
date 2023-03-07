@@ -4,33 +4,36 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StudentClassController extends Controller
 {
     public function profile($studentID)
     {
-        $student = DB::table('students')->where('student_id', '=', $studentID)->first();
+        $student = DB::table('students')->join('users', 'students.student_id', '=', 'users.id')
+            ->where('students.isDelete', 0)->first();
         $level = DB::table('levels')->where('id', $student->level_id)->first();
 
         $subjectsJoin = StudentClassController::subjectsJoin($studentID);
-
+      
         $subjectsAccpet = StudentClassController::subjectsAccpet($studentID);
 
         $subjectsUnJoin = StudentClassController::subjectsUnJoin($studentID, $level->id);
+        // dd($subjectsUnJoin);
         //student_panel.student_panel
         return view('std_class.index', [
             'student' => $student,
             'level' => $level,
             'subjectsJoin' => $subjectsJoin,
             'subjectsUnJoin' => $subjectsUnJoin,
-            'subjectsAccpet' => $subjectsAccpet
+            'subjectsAccpet' => $subjectsAccpet,
         ]);
     }
     public function studentProfile($studentID)
     {
-        $student = DB::table('students')->where('student_id', '=', $studentID)->first();
+        $student = DB::table('students')->join('users', 'students.student_id', '=', 'users.id')
+            ->where('students.isDelete', 0)->first();
+        // dd($student);
         $level = DB::table('levels')->where('id', $student->level_id)->first();
 
         $subjectsJoin = StudentClassController::subjectsJoin($studentID);
@@ -44,10 +47,9 @@ class StudentClassController extends Controller
             'level' => $level,
             'subjectsJoin' => $subjectsJoin,
             'subjectsUnJoin' => $subjectsUnJoin,
-            'subjectsAccpet' => $subjectsAccpet
+            'subjectsAccpet' => $subjectsAccpet,
         ]);
     }
-
 
     public function joinClass(Request $request, $classID, $studentID)
     {
@@ -56,7 +58,7 @@ class StudentClassController extends Controller
             'class_id' => $classID,
             'state' => 1,
         ]);
-        dd($request);
+        // dd($request);
         if ($request->is('/stdClass/profile/*')) {
             return redirect()->route('studentClassProfile', $studentID);
         } else {
@@ -74,7 +76,6 @@ class StudentClassController extends Controller
         return DB::select($qForSubjectsJoin);
     }
 
-
     public function subjectsUnJoin($studentID, $levelID)
     {
         $qForSubjectsUnJoin = 'SELECT subject.*,c.id AS classID,c.class_name ,c.level_id ,t.name FROM `users` as t, `subjects` AS subject,`classes` AS c WHERE(
@@ -84,7 +85,7 @@ class StudentClassController extends Controller
             )';
 
         return DB::select($qForSubjectsUnJoin);
-        ;
+
     }
 
     public function subjectsAccpet($studentID)
