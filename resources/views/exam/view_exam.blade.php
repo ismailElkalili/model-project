@@ -11,7 +11,7 @@
 
     @if ($isSubmited)
         <form action="{{ URL('/std/exam/class/OldExam/' . $classID . '/' . $examForStudent->id) }}" method="GET">
-            <button type="submit" class="btn btn-primary">View</button>
+            <button type="submit" class="btn btn-outline-primary btn-primary">View</button>
         </form>
     @elseif (!$isExpired)
         <form action="{{ URL('/std/exam/class/' . $classID . '/' . $examForStudent->id) }}" method="GET">
